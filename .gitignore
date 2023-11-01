@@ -3,6 +3,8 @@
 # custom files 
 server/package-lock.json
 client/package-lock.json
+notes.md
+start.sh
 
 # dependencies
 client/node_modules
