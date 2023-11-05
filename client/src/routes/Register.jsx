@@ -1,6 +1,10 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import {useNavigate} from "react-router-dom";
 
 export default function Register() {
+
+  const navigate = useNavigate()
+
   const formSubmitHandler = async (e) => {
     e.preventDefault()
     const form = new FormData(e.currentTarget);
@@ -12,8 +16,9 @@ export default function Register() {
     });
 
     const registeredUser = await response.json();
-    console.log("DEBUG: frontend", registeredUser)
-    // props.resetForm();
+    if (registeredUser) {
+      navigate("/login")
+    }
   };
 
   return (

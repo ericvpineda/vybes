@@ -7,6 +7,7 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 import Profile from './routes/Profile';
 import Feed from './routes/Feed';
 import Register from './routes/Register';
+import Login from './routes/Login';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "register",
                 element: <Register/>
+            },
+            {
+                path: "login",
+                element: <Login/>
             },
         ]
     }
