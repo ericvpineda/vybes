@@ -50,12 +50,12 @@ mongoose.connect(MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log("Database connected!"))
-.catch(() => console.log("Database connection failed."))
+.then(() => console.log(`Database: ${process.env.NODE_ENV || "production"}.`))
+.catch(() => console.log("Error: Database connection failed."))
 
 // Test route
 app.get("/message", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}.`));
+app.listen(PORT, () => console.log(`Server port: ${PORT}.`))
