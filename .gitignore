@@ -1,12 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# custom files 
+# custom files
+package-lock.json 
 server/package-lock.json
 client/package-lock.json
 notes.md
 start.sh
 
 # dependencies
+node_modules
 client/node_modules
 server/node_modules
 /.pnp
