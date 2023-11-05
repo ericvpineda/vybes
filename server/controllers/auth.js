@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import jwt from "jwt";
-import User from "../models/users";
+import jwt from "jsonwebtoken";
+import User from "../models/users.js";
 
-export const createUser = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     const {
       firstName,
@@ -37,3 +37,5 @@ export const createUser = async (req, res) => {
     res.status(500).json({error: error.message});
   }
 };
+
+export {createUser};
