@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Nav from "./components/Nav/Nav";
-import "./App.css";
+import Nav from "./components/Nav";
+import SideBar from "./components/SideBar";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -14,9 +14,12 @@ function App() {
   // }, [])
 
   return (
-    <div className="App">
+    <div className="flex min-h-screen">
       <Nav/>
-      <Outlet/>
+      <div className="container max-w-7xl mx-auto p-0 w-[50rem]">
+        <Outlet/>
+      </div>
+      <SideBar/>
     </div>
   );
 }

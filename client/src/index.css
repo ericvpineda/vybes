@@ -12,18 +12,19 @@ html {
   box-sizing: inherit;
 }
 
-#root {
-    display: flex;
-    height: 100%;
-    width: 100%;
-  }
-  
-
 body {
     height: 100vh;
     width: 100%;
 
     padding: 0;
     margin: 0;
-    
 }
+
+/* Note: This is inside body element */
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
