@@ -38,4 +38,25 @@ const createUser = async (req, res) => {
   }
 };
 
-export {createUser};
+const login = async (req, res) => {
+  try {
+      const {email, password} = req.body;
+      const user = await User.findOne({email})
+
+      if (!user) {
+        return res.status(400).json({message: "User does not exist."})
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({message: "Invalide credentials."})
+      }
+      const accessToken = jwt.sign({id: user._id}, process.env.JWT_ACCESS_TOKEN)
+      delete user.password;
+      res.status(200).json(accessToken, user)
+
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+}
+
+export {createUser, login};

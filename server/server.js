@@ -4,13 +4,15 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import multer from "multer";
-import {GridFsStorage} from 'multer-gridfs-storage';
-import Grid from 'gridfs-stream';
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import {createUser} from "./controllers/auth.js";
 import { fileURLToPath } from "url";
+import {GridFsStorage} from 'multer-gridfs-storage';
+import Grid from 'gridfs-stream';
+import authRoutes from "./routes/auth.js"
+import userRoutes from "./routes/users.js"
 
 dotenv.config();
 
@@ -57,5 +59,8 @@ mongoose.connect(MONGODB_URL, {
 
 // Routes 
 app.post("/auth/register", upload.single("file-upload"), createUser);
+app.use("/auth", authRoutes)
+app.use("/user", userRoutes)
+
 
 app.listen(PORT, () => console.log(`Server port: ${PORT}.`))
