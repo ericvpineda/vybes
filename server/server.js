@@ -8,11 +8,14 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import {createUser} from "./controllers/auth.js";
+import {createPost} from "./controllers/posts.js";
 import { fileURLToPath } from "url";
 import {GridFsStorage} from 'multer-gridfs-storage';
 import Grid from 'gridfs-stream';
+import { isAuthenticated } from "./middleware/index.js";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import postRoutes from "./routes/posts.js"
 
 dotenv.config();
 
@@ -57,10 +60,17 @@ mongoose.connect(MONGODB_URL, {
 .then(() => console.log(`Database: ${process.env.NODE_ENV || "production"}.`))
 .catch(() => console.log("Error: Database connection failed."))
 
-// Routes 
+// -- Routes with Files --  
+
+// Create user with user image (if available)
 app.post("/auth/register", upload.single("file-upload"), createUser);
+// Create post with post image (if available)
+app.post("/posts", isAuthenticated, upload.single("file-upload"), createPost)
+
+// -- Routes --
 app.use("/auth", authRoutes)
 app.use("/user", userRoutes)
+app.use("/posts", postRoutes)
 
 
 app.listen(PORT, () => console.log(`Server port: ${PORT}.`))
