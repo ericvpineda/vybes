@@ -4,6 +4,8 @@ import Post from "../models/posts.js";
 import dotenv from "dotenv";
 import path from "path"
 import { fileURLToPath } from "url";
+import { posts } from "./posts.js";
+import { people } from "./people.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +26,21 @@ const run = async () => {
 
     await User.deleteMany({});
     await Post.deleteMany({});
+    
+    for (let i=0; i < people.length; i++) {
+      const person = people[i];
+      const body = posts[i].body;
 
+      const user = new User(person)
+      const post = new Post({
+        body: body,
+        userId: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName
+      })
+      await user.save()
+      await post.save()
+    }
 }
 
-// run().then(() => mongoose.connection.close())
+run().then(() => mongoose.connection.close())
