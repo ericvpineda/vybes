@@ -6,6 +6,7 @@ server/package-lock.json
 client/package-lock.json
 notes.md
 start.sh
+request.rest
 
 # dependencies
 node_modules

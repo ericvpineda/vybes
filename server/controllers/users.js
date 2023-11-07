@@ -1,5 +1,6 @@
 import User from "../models/users.js";
 
+// Get user object by given id
 const getUser = async (req, res) => {
     try {
       const {id} = req.params;
@@ -9,6 +10,8 @@ const getUser = async (req, res) => {
         res.status(404).json({message: error.message});
     }
 } 
+
+// Get user friends from given idf
 const getUserFriends = async (req, res) => {
     try {
         const {id} = req.params;
@@ -20,6 +23,8 @@ const getUserFriends = async (req, res) => {
         res.status(404).json({message: error.message});
     }
 }
+
+// Update user friend by given friendId
 const addRemoveFriend = async (req, res) => {
     try {
         const {id, friendId} = req.params
