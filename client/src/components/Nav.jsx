@@ -38,8 +38,8 @@ export default function Nav() {
         <div
           onClick={() => navigate("/")}
           className={classNames(
-            "cursor-pointer font-bold text-md text-lightPrimary-500",
-            "hover:text-lightPrimary-0"
+            "cursor-pointer font-bold text-lg text-lightPrimary-500",
+            "hover:text-lightPrimary-0 font-roboto"
           )}
         >
           Vybes

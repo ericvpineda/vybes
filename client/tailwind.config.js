@@ -43,6 +43,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+      },
       colors: {
         darkPrimary: {
           0: colorTokens.primary[200],
