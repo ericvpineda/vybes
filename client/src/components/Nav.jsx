@@ -1,31 +1,50 @@
-import React from "react";
+import { useState } from "react";
+import {
+  Box,
+  IconButton,
+  InputBase,
+  Typography,
+  Select,
+  MenuItem,
+  FormControl,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import {
+  Search,
+  Message,
+  DarkMode,
+  LightMode,
+  Notifications,
+  Help,
+  Menu,
+  Close,
+} from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setMode, setLogout } from "state/auth.js";
+import { useNavigate } from "react-router-dom";
+import { classNames } from "utils/utils";
 
 export default function Nav() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const userFullName =
+    (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
+
   return (
-      <nav className="border-solid border-2 border-slate-500 flex flex-col justify-between max-w-[5rem]">
-        <div>
-          <h2>Navigation</h2>
-          <div className="text-blue-500 ">
-            <div>
-              <a href="">Logo</a>
-            </div>
-            <div>
-              <a href="">Home</a>
-            </div>
-            <div>
-              <a href="">Chat</a>
-            </div>
-            <div>
-              <a href="">Explore</a>
-            </div>
-            <div>
-              <a href="">Settings</a>
-            </div>
-          </div>
+    <nav className="absolute flex-between py-4 px-[6%] bg-lightNeutral-700">
+      <div className="flex-between">
+        <div
+          onClick={() => navigate("/")}
+          className={classNames(
+            "cursor-pointer font-bold text-md text-lightPrimary-500",
+            "hover:text-lightPrimary-0"
+          )}
+        >
+          Vybes
         </div>
-        <div className="text-blue-500 ">
-          <div>Dark Mode</div>
-        </div>
-      </nav>
+      </div>
+    </nav>
   );
 }

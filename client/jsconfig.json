@@ -3,6 +3,6 @@
         "baseUrl": "src",
         "module": "es6"
     },
-    "include": ["src"],
+    "include": ["src", "theme.js"],
     "exclude": ["node_modules"]
 }

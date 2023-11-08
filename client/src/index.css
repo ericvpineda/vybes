@@ -24,5 +24,10 @@ html {
     box-sizing: border-box;
 }
 
+.flex-between {
+  @apply flex justify-between items-center
+}
+
+
 
 
