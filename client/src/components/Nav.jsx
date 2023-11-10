@@ -30,15 +30,19 @@ import { classNames } from "utils/utils";
 export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user) || {firstName: "eric", lastName: "wow"};
   const mode = useSelector((state) => state.auth.mode);
   const userFullName =
     (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
-  const backgroundColor = "#E0E0E0";
   const [isMobileMenuToggled, setisMobileMenuToggled] = useState(false);
-  const iconColor = mode === "dark" ? "white" : "black"; 
+  const iconColor = mode === "dark" ? "white" : "black";
   return (
-    <nav className="absolute flex-between py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full">
+    <nav
+      className={classNames(
+        "absolute t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full",
+        `${user ? "flex-between" : "flex justify-center"}`
+      )}
+    >
       {/* Logo and Search bar  */}
       <div className="flex-between">
         <div
@@ -51,40 +55,45 @@ export default function Nav() {
           Vybes
         </div>
 
-        <div className="relative flex-betweeen hidden sm:block sm:ml-5">
-          <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
-            <IconButton>
-              <Search />
-            </IconButton>
+        {user && (
+          <div className="relative flex-betweeen hidden sm:block sm:ml-5">
+            <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+              <IconButton>
+                <Search />
+              </IconButton>
+            </div>
+            <input
+              id="search"
+              name="search"
+              className="block w-full rounded-md border-0 bg-lightNeutral-800 dark:bg-darkNeutral-900 py-[0.5rem] px-[1.5rem] text-gray-300 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
+              placeholder="Search"
+              type="search"
+            />
           </div>
-          <input
-            id="search"
-            name="search"
-            className="block w-full rounded-md border-0 bg-lightNeutral-800 dark:bg-darkNeutral-900 py-[0.5rem] px-[1.5rem] text-gray-300 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
-            placeholder="Search"
-            type="search"
-          />
-        </div>
+        )}
       </div>
 
       {/* Desktop Navigation  */}
-      {!isMobileMenuToggled && (
+      {user && !isMobileMenuToggled && (
         <div className="sm:block sm:flex sm:items-center sm:justify-between hidden sm:w-[20rem]">
           <IconButton onClick={() => dispatch(setMode())}>
             {mode === "dark" ? (
-              <DarkMode sx={{ fontSize: "25px" }} style={{color: "white"}}/>
+              <DarkMode sx={{ fontSize: "25px" }} style={{ color: "white" }} />
             ) : (
-              <LightMode sx={{ fontSize: "25px" }} style={{color: "black"}}/>
+              <LightMode sx={{ fontSize: "25px" }} style={{ color: "black" }} />
             )}
           </IconButton>
           <IconButton>
-            <Message sx={{ fontSize: "25px" }} style={{color: iconColor}} />
+            <Message sx={{ fontSize: "25px" }} style={{ color: iconColor }} />
           </IconButton>
           <IconButton>
-            <Notifications sx={{ fontSize: "25px" }} style={{color: iconColor}} />
+            <Notifications
+              sx={{ fontSize: "25px" }}
+              style={{ color: iconColor }}
+            />
           </IconButton>
           <IconButton>
-            <Help sx={{ fontSize: "25px" }} style={{color: iconColor}} />
+            <Help sx={{ fontSize: "25px" }} style={{ color: iconColor }} />
           </IconButton>
           <FormControl variant="standard" value={userFullName}>
             <Select
@@ -101,8 +110,8 @@ export default function Nav() {
               }}
               input={<InputBase />}
             >
-              <MenuItem value={userFullName} >
-                <div >{userFullName}</div>
+              <MenuItem value={userFullName}>
+                <div>{userFullName}</div>
               </MenuItem>
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
             </Select>
@@ -111,18 +120,18 @@ export default function Nav() {
       )}
 
       {/* Mobile Mode */}
-      {!isMobileMenuToggled && (
+      {user && !isMobileMenuToggled && (
         <div className="sm:hidden">
           <IconButton
             onClick={() => setisMobileMenuToggled(!isMobileMenuToggled)}
           >
-            <Menu style={{color: iconColor}} />
+            <Menu style={{ color: iconColor }} />
           </IconButton>
         </div>
       )}
 
       {/* Mobile Navigation */}
-      {isMobileMenuToggled && (
+      {user && isMobileMenuToggled && (
         <Box
           position="fixed"
           right="0"
@@ -138,26 +147,29 @@ export default function Nav() {
             <IconButton
               onClick={() => setisMobileMenuToggled(!isMobileMenuToggled)}
             >
-              <Close style={{color: iconColor}}/>
+              <Close style={{ color: iconColor }} />
             </IconButton>
           </div>
 
           {/* Menu Items  */}
           <IconButton onClick={() => dispatch(setMode())}>
             {mode === "dark" ? (
-              <DarkMode sx={{ fontSize: "25px" }} style={{color: "white"}}/>
+              <DarkMode sx={{ fontSize: "25px" }} style={{ color: "white" }} />
             ) : (
-              <LightMode sx={{ fontSize: "25px" }} style={{color: "black"}}/>
+              <LightMode sx={{ fontSize: "25px" }} style={{ color: "black" }} />
             )}
           </IconButton>
           <IconButton>
-            <Message sx={{ fontSize: "25px" }} style={{color: iconColor}} />
+            <Message sx={{ fontSize: "25px" }} style={{ color: iconColor }} />
           </IconButton>
           <IconButton>
-            <Notifications sx={{ fontSize: "25px" }} style={{color: iconColor}} />
+            <Notifications
+              sx={{ fontSize: "25px" }}
+              style={{ color: iconColor }}
+            />
           </IconButton>
           <IconButton>
-            <Help sx={{ fontSize: "25px" }} style={{color: iconColor}} />
+            <Help sx={{ fontSize: "25px" }} style={{ color: iconColor }} />
           </IconButton>
           <FormControl variant="standard" value={userFullName}>
             <Select
@@ -174,8 +186,8 @@ export default function Nav() {
               }}
               input={<InputBase />}
             >
-              <MenuItem value={userFullName} >
-                <div >{userFullName}</div>
+              <MenuItem value={userFullName}>
+                <div>{userFullName}</div>
               </MenuItem>
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
             </Select>
