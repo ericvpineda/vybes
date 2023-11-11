@@ -23,7 +23,7 @@ const createUser = async (req, res) => {
         firstName,
         lastName,
         email,
-        imageUrl,
+        imageUrl: imageUrl["path"],
         bio,
         location,
         profileViews: Math.floor(Math.random() * 1000),

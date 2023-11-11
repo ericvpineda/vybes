@@ -49,8 +49,8 @@ export default function Login() {
 
   return (
     <div className="h-full w-full flex justify-center items-center ">
-      <div className="bg-white dark:bg-darkBackground-0 p-10 flex flex-col justify-between rounded-md">
-        <h1 className="text-lightPrimary-500 text-3xl mb-2 font-medium text-center">
+      <div className="max-w-lg bg-white dark:bg-darkBackground-0 p-7 flex flex-col justify-between rounded-md">
+        <h1 className="uppercase text-lightPrimary-500 text-3xl mb-2 font-medium text-center">
           Vybes
         </h1>
         <h2 className="text-slate-500 dark:text-gray-100 text-md font-medium mb-4 text-center">

@@ -40,7 +40,7 @@ export default function Nav() {
     <nav
       className={classNames(
         "fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full",
-        `${user ? "flex-between" : "flex justify-center"}`
+        `${user ? "flex-between" : "flex justify-center"} z-10`
       )}
     >
       {/* Logo and Search bar  */}
