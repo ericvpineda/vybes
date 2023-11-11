@@ -2,13 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setLogin } from "state/auth";
+import { useSelector } from "react-redux";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const mode = useSelector((state) => state.auth.mode);
 
   const formSubmitHandler = async (values, props) => {
     const response = await fetch("http://localhost:8000/auth/login", {
@@ -46,12 +48,12 @@ export default function Login() {
   });
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <div className="bg-white p-10 flex flex-col justify-between rounded-md">
-        <h1 className="text-slate-500 text-3xl mb-2 font-medium text-center">
+    <div className="h-full w-full flex justify-center items-center ">
+      <div className="bg-white dark:bg-darkBackground-0 p-10 flex flex-col justify-between rounded-md">
+        <h1 className="text-lightPrimary-500 text-3xl mb-2 font-medium text-center">
           Vybes
         </h1>
-        <h2 className="text-slate-500 text-md font-medium mb-4 text-center">
+        <h2 className="text-slate-500 dark:text-gray-100 text-md font-medium mb-4 text-center">
           The music social media hub for electronic music.
         </h2>
         <div className="mb-2">
@@ -83,7 +85,28 @@ export default function Login() {
                   name="email"
                   error={Boolean(touched.email) && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
-                  sx={{ m: "0 0 1rem 0" }}
+                  sx={{
+                    m: "0 0 1rem 0",
+                    ...(mode === "dark" && {
+                      "& .MuiInputLabel-root": {
+                        color: "white",
+                      },
+                      "& .MuiOutlinedInput-input": {
+                        color: "white",
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "white",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "white",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "white",
+                        },
+                      },
+                    }),
+                  }}
                 />
                 <TextField
                   label="Password"
@@ -94,12 +117,33 @@ export default function Login() {
                   name="password"
                   error={Boolean(touched.password) && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
-                  sx={{ m: "0 0 1rem 0" }}
+                  sx={{
+                    m: "0 0 1rem 0",
+                    ...(mode === "dark" && {
+                      "& .MuiInputLabel-root": {
+                        color: "white",
+                      },
+                      "& .MuiOutlinedInput-input": {
+                        color: "gray",
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "white",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "white",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "white",
+                        },
+                      },
+                    }),
+                  }}
                 />
 
                 <button
                   type="submit"
-                  className="bg-black text-white py-4 px-1 rounded-lg mb-4 text-md"
+                  className="bg-lightPrimary-500 hover:bg-lightPrimary-0 text-white py-4 px-1 rounded-lg mb-4 text-md"
                 >
                   Login
                 </button>
