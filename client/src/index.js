@@ -5,7 +5,7 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Profile from "./routes/Profile";
-import Feed from "./routes/Feed";
+import Feed from "./routes/Home";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
 import { Provider } from "react-redux";

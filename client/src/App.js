@@ -1,16 +1,15 @@
 import React, { useMemo } from "react";
-import SideBar from "./components/SideBar";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Nav from "./components/Nav";
-import { classNames } from "utils/utils";
+import SideBar from "./components/SideBar";
 
 function App() {
   // Used for dark/light mode
   const colorTheme = useSelector((state) => state.auth.mode);
   const htmlElem = document.querySelector("html");
 
-  // Note:
+  // Note: Do not need useEffect
   if (colorTheme === "dark") {
     htmlElem.classList.remove("light");
     htmlElem.classList.add("dark");
@@ -22,10 +21,9 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-lightBackground-900 dark:bg-darkBackground-900">
       <Nav />
-      {/* <div className="container max-w-7xl mx-auto p-0 w-[50rem]">
-          <Outlet />
-        </div> */}
-      {/* <SideBar /> */}
+      <div className="flex items-center container max-w-7xl mx-auto pt-20 h-screen w-full">
+        <Outlet />
+      </div>
     </div>
   );
 }

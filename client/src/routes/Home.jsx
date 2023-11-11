@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Feed() {
+export default function Home() {
   return (
     <div className="border-solid border-2 border-slate-500 h-full w-full">
       <h2 className="mb-5">Vybes Feed</h2>

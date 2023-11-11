@@ -6,6 +6,7 @@ import path from "path"
 import { fileURLToPath } from "url";
 import { posts } from "./posts.js";
 import { people } from "./people.js";
+import bcrypt from "bcrypt"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,9 +27,13 @@ const run = async () => {
 
     await User.deleteMany({});
     await Post.deleteMany({});
+
+    const salt = await bcrypt.genSalt();
     
     for (let i=0; i < people.length; i++) {
       const person = people[i];
+      const passwordHash = await bcrypt.hash(person.password, salt);
+      person.password = passwordHash;
       const body = posts[i].body;
 
       const user = new User(person)

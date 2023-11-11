@@ -30,7 +30,7 @@ import { classNames } from "utils/utils";
 export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user) || {firstName: "eric", lastName: "wow"};
+  const user = useSelector((state) => state.auth.user);
   const mode = useSelector((state) => state.auth.mode);
   const userFullName =
     (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
@@ -113,7 +113,7 @@ export default function Nav() {
               <MenuItem value={userFullName}>
                 <div>{userFullName}</div>
               </MenuItem>
-              <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+              <MenuItem onClick={() => {dispatch(setLogout()); navigate("/login")}}>Log Out</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -189,7 +189,14 @@ export default function Nav() {
               <MenuItem value={userFullName}>
                 <div>{userFullName}</div>
               </MenuItem>
-              <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(setLogout());
+                  navigate("/login");
+                }}
+              >
+                Log Out
+              </MenuItem>
             </Select>
           </FormControl>
         </Box>
