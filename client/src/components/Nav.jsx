@@ -39,7 +39,7 @@ export default function Nav() {
   return (
     <nav
       className={classNames(
-        "absolute t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full",
+        "fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full",
         `${user ? "flex-between" : "flex justify-center"}`
       )}
     >

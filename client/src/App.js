@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-lightBackground-900 dark:bg-darkBackground-900">
       <Nav />
-      <div className="flex items-center container max-w-7xl mx-auto pt-20 h-screen w-full">
+      <div className="flex items-center container max-w-7xl mx-auto h-full w-full pt-20">
         <Outlet />
       </div>
     </div>
