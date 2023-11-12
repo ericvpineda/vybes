@@ -32,7 +32,7 @@ export default function CreatePostWidget({ userId, imageName }) {
     for (let key in values) {
       form.append(key, values[key])
     }
-    const response = await fetch(`http://localhost:8000/posts/${user._id}`, {
+    const response = await fetch(`http://localhost:8000/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: form,
