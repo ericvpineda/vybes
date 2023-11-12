@@ -37,3 +37,17 @@ html {
 .create_post_button {
   @apply cursor-pointer flex items-center sm:px-4 px-6 border-r-2 border-gray-300 border-0 dark:border-gray-700
 }
+
+.create_post_button_action {
+  @apply whitespace-nowrap overflow-y-hidden max-w-[5rem] no-scrollbar
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

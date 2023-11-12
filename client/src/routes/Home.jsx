@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export default function Home({imageName}) {
   const user = useSelector(state => state.auth.user)
   return (
-    <div className="h-full w-full md:flex block gap-4">
+    <div className="h-full w-full lg:flex block gap-4">
       
       <div className="basis-[28%]">
         <UserWidget userId={user._id} imageName={user.imageUrl}/>

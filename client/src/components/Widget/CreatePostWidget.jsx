@@ -15,22 +15,25 @@ import {
   MicOutlined,
   MoreHoizontalOutlined,
 } from "@mui/icons-material";
+import Dropzone from "react-dropzone";
 
 export default function CreatePostWidget({ userId, imageName }) {
   const [postInfo, setpostInfo] = useState("");
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const [buttonText, setbuttonText] = useState("Post");
+  const [image, setimage] = useState(null);
 
   const onClickHandler = async () => {
     const values = {
       userId: user._id,
       body: postInfo,
-      imageUrl: "",
+      imageUrl: image,
+      imageName: image.name
     };
     const form = new FormData();
     for (let key in values) {
-      form.append(key, values[key])
+      form.append(key, values[key]);
     }
     const response = await fetch(`http://localhost:8000/posts`, {
       method: "POST",
@@ -64,10 +67,35 @@ export default function CreatePostWidget({ userId, imageName }) {
       </div>
       <HorizontalLine />
       <div className="flex w-full justify-center">
-        <div className="create_post_button">
-          <AddPhotoAlternateIcon />
-          <p className="sm:ml-1 hidden sm:block">Image</p>
-        </div>
+        <Dropzone
+          acceptedFiles=".jpg,.jpeg,.png"
+          multiple={false}
+          onDrop={acceptedFiles => setimage(acceptedFiles[0])}
+        >
+          {({ getRootProps, getInputProps }) => (
+            <div className="create_post_button" {...getRootProps()}>
+              <input
+                {...getInputProps()}
+                id="imageUrl"
+                name="imageUrl"
+                type="file"
+                className="sr-only"
+              />
+              {!image ? (
+                <>
+                  {" "}
+                  <AddPhotoAlternateIcon />
+                  <p className="sm:ml-1 hidden sm:block">Image</p>
+                </>
+              ) : (
+                <div className="flex items-center">
+                  <div className="mr-3 create_post_button_action">{image.name}</div>
+                  <EditOutlined />
+                </div>
+              )}
+            </div>
+          )}
+        </Dropzone>
         <div className="create_post_button">
           <AttachFileIcon />
           <p className="sm:ml-1 hidden sm:block">Attachment</p>
@@ -80,7 +108,7 @@ export default function CreatePostWidget({ userId, imageName }) {
           <VideoCameraBackIcon />
           <p className="sm:ml-1 hidden sm:block">Video</p>
         </div>
-        <Button variant="contained" onClick={onClickHandler}>
+        <Button variant="contained" onClick={onClickHandler} disabled={postInfo.length === 0 ? true : false}>
           {buttonText}
         </Button>
       </div>
