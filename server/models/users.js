@@ -2,14 +2,14 @@ import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
   {
-    firstName: { type: String, required: true, min: 2, max: 50 },
-    lastName: { type: String, min: 2, max: 50 },
-    email: { type: String, required: true, max: 50, unqiue: true },
-    password: { type: String, required: true, min: 8 },
+    firstName: { type: String, required: true, minLength: 1, maxLength: 50 },
+    lastName: { type: String, maxLength: 50, default: "" },
+    email: { type: String, required: true, max: 50, unqiue: true, index: true},
+    password: { type: String, required: true, minLength: 8 },
     imageUrl: { type: String, default: "" },
-    bio: { type: String },
-    location: { type: String },
-    profileViews: { type: Number },
+    bio: { type: String, default: ""},
+    location: { type: String, default: "" },
+    profileViews: { type: Number, default: 0, min: 0 },
     friends: { type: Array, default: [] },
   },
   { timestamps: true }

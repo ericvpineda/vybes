@@ -1,30 +1,11 @@
-import React from "react";
+import UserWidget from "components/Widget/UserWidget.jsx";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const user = useSelector(state => state.auth.user)
   return (
-    <div className="border-solid border-2 border-slate-500 h-full w-full">
-      <h2 className="mb-5">Vybes Feed</h2>
-      <div>
-        <div>Feed</div>
-        <div className="mx-5">
-          {/* Post: User Info */}
-          <div className="flex justify-between">
-            <div>User Image</div>
-            <h3>Mark ^mshard</h3>
-          </div>
-          {/* Post: Post info */}
-          <div>
-            <p>This post is fyre</p>
-            <div className="flex items-center">
-              <img src="#" alt="Illenium Image"></img>
-              <div>
-                <p>Fractures</p>
-                <p>Illenium</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="h-full w-full">
+      <UserWidget userId={user._id}/>
     </div>
   );
 }

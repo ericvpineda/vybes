@@ -39,7 +39,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 // Set directory of where keep assets (Note: Production version needs to be stored on cloud)
-app.use("/assests", express.static(path.join(__dirname, "public/assets")));
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 // Local file storage for multi-media
 const storage = multer.diskStorage({
@@ -63,9 +63,9 @@ mongoose.connect(MONGODB_URL, {
 // -- Routes with Files --  
 
 // Create user with user image (if available)
-app.post("/auth/register", upload.single("file-upload"), createUser);
+app.post("/auth/register", upload.single("imageUrl"), createUser);
 // Create post with post image (if available)
-app.post("/posts", isAuthenticated, upload.single("file-upload"), createPost)
+app.post("/posts", isAuthenticated, upload.single("imageUrl"), createPost)
 
 // -- Routes --
 app.use("/auth", authRoutes)

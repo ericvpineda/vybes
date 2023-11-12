@@ -11,10 +11,14 @@ export default function Register() {
 
   const formSubmitHandler = async (values, props) => {
 
+    const form = new FormData()
+    for (let key in values) {
+      form.append(key, values[key])
+    }
+    form.append("imageUrl", values.imageUrl.name)
     const response = await fetch("http://localhost:8000/auth/register", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: form,
     });
 
     const registeredUser = await response.json();
@@ -80,7 +84,6 @@ export default function Register() {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.firstName}
-                defaultValue={"eric"}
                 name="firstName"
                 error={Boolean(touched.firstName) && Boolean(errors.firstName)}
                 helperText={touched.firstName && errors.firstName}

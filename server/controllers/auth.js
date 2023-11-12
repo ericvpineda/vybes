@@ -11,7 +11,6 @@ const createUser = async (req, res) => {
       email,
       password,
       imageUrl,
-      bio,
       location,
       friends,
     } = req.body;
@@ -23,16 +22,23 @@ const createUser = async (req, res) => {
         firstName,
         lastName,
         email,
-        imageUrl: imageUrl["path"],
-        bio,
+        imageUrl,
         location,
         profileViews: Math.floor(Math.random() * 1000),
         friends,
+        bio: "",
     })
 
-    const savedUser = await user.save();
-    // Note: Json to allow frontend to recieve response  
-    res.status(201).json({savedUser}); 
+    const foundUser = await User.findOne({email})
+
+    if (!foundUser) {
+      const savedUser = await user.save();
+      // Note: Json to allow frontend to recieve response  
+      res.status(201).json({savedUser}); 
+    } else {
+      res.status(500).json({error: "User already exists."})
+    }
+
 
   } catch (error) {
     res.status(500).json({error: error.message});
