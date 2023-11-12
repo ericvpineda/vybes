@@ -16,6 +16,7 @@ import {
   MoreHoizontalOutlined,
 } from "@mui/icons-material";
 import Dropzone from "react-dropzone";
+import { setPosts } from "state/auth";
 
 export default function CreatePostWidget({ userId, imageName }) {
   const [postInfo, setpostInfo] = useState("");
@@ -23,6 +24,7 @@ export default function CreatePostWidget({ userId, imageName }) {
   const user = useSelector((state) => state.auth.user);
   const [buttonText, setbuttonText] = useState("Post");
   const [image, setimage] = useState(null);
+  const dispatch = useDispatch()
 
   const onClickHandler = async () => {
     const values = {
@@ -41,9 +43,14 @@ export default function CreatePostWidget({ userId, imageName }) {
       body: form,
     });
 
+    const posts = await response.json()
+
     if (response.ok) {
       setbuttonText("Done!");
       setTimeout(() => setbuttonText("Post"), 800);
+      setimage(null);
+      setpostInfo("")
+      dispatch(setPosts({posts}))
     } else {
       // TODO: Reply back to user with failed response
     }
