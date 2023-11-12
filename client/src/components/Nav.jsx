@@ -40,7 +40,7 @@ export default function Nav() {
     <nav className="fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full z-10">
       <div
         className={classNames(
-          "w-full max-w-7xl mx-auto",
+          "w-full max-w-[84rem] mx-auto",
           `${user ? "flex-between" : "flex justify-center"}`
         )}
       >

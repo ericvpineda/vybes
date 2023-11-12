@@ -17,7 +17,7 @@ export default function UserWidget({ userId, imageName }) {
   const navigate = useNavigate();
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3000/user/${userId}`, {
+    const response = await fetch(`http://localhost:8000/user/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -25,6 +25,7 @@ export default function UserWidget({ userId, imageName }) {
     const user = await response.json();
     if (response.ok) {
       setuser(user);
+      console.log(user, response)
     }
   };
 
@@ -41,7 +42,7 @@ export default function UserWidget({ userId, imageName }) {
 
   return (
     <WidgetWrapper>
-      <div className="flex justify-between w-full items-center">
+      <div className="flex justify-between w-full items-center min-w-[15rem]">
         <div className="flex items-center">
           <div
             className="flex justify-center items-center mr-2"
@@ -66,7 +67,7 @@ export default function UserWidget({ userId, imageName }) {
       <div className="text-lightNeutral-0 pl-1">
         <div className="flex">
           <LocationOnOutlined />
-          <p className="ml-2">{user.location || "San Francisco, CA"}</p>
+          <p className="ml-2">{location || "San Francisco, CA"}</p>
         </div>
 
         <div className="flex">
@@ -78,7 +79,7 @@ export default function UserWidget({ userId, imageName }) {
       <div className="text-lightNeutral-0 px-1">
         <div className="flex justify-between items-center">
           <p>Times profile was viewed:</p>
-          <p className="ml-2">{user.profileViews}</p>
+          <p className="ml-2">{profileViews}</p>
         </div>
 
         <div className="flex justify-between items-center">
@@ -102,7 +103,7 @@ export default function UserWidget({ userId, imageName }) {
             </svg>
             <div className="flex flex-col justify-start">
               <p className="ml-2 border-b-2 border-slate-200 font-medium">GitHub</p>
-              <p className="ml-2">https://github.com/{user.firstName}{user.lastName}</p>
+              <p className="ml-2">https://github.com/{firstName}{lastName}</p>
             </div>
           </div>
           <EditOutlined/>
