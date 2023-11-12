@@ -1,13 +1,45 @@
-import React, { useMemo } from "react";
-import { Outlet } from "react-router-dom";
+import React from "react";
 import { useSelector } from "react-redux";
-import Nav from "./components/Nav";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
+import Profile from "./routes/Profile";
+import Home from "./routes/Home";
+import Register from "./routes/Register";
+import Login from "./routes/Login";
 import SideBar from "./components/SideBar";
+import RootLayout from "layout/RootLayout";
+import { Navigate } from "react-router-dom";
 
 function App() {
   // Used for dark/light mode
   const colorTheme = useSelector((state) => state.auth.mode);
+  const isAuthenticated = Boolean(useSelector((state) => state.auth.token));
   const htmlElem = document.querySelector("html");
+
+  const router = createBrowserRouter([
+    {
+      element: <RootLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/",
+          element: (isAuthenticated ? <Home /> : <Navigate to="/login" />),
+        },
+        {
+          path: "profile/:userId",
+          element: (isAuthenticated ? <Profile /> : <Navigate to="/login" />),
+        },
+        {
+          path: "register",
+          element: (isAuthenticated ? <Navigate to="/" /> : <Register />),
+        },
+        {
+          path: "login",
+          element: (isAuthenticated ? <Navigate to="/" /> : <Login />),
+        },
+      ],
+    },
+  ]);
 
   // Note: Do not need useEffect
   if (colorTheme === "dark") {
@@ -18,14 +50,7 @@ function App() {
     htmlElem.classList.add("light");
   }
 
-  return (
-    <div className="min-h-screen w-full bg-lightBackground-900 dark:bg-darkBackground-900">
-      <Nav />
-      <div className="flex items-center container max-w-7xl mx-auto h-full w-full pt-20">
-        <Outlet />
-      </div>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
