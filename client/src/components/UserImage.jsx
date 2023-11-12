@@ -6,9 +6,7 @@ export default function UserImage({ name, size = "60px" }) {
       <img
         src={`http://localhost:8000/assets/${name}`}
         alt="User."
-        height={size}
-        width={size}
-        className="object-cover rounded-[50%]"
+        className="object-cover rounded-[50%] h-[60px] w-[60px]"
       />
     </Box>
   );
