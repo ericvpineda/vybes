@@ -39,7 +39,8 @@ export default function Nav() {
   return (
     <nav className="fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full z-10">
       <div
-        className={classNames("w-full max-w-7xl mx-auto",
+        className={classNames(
+          "w-full max-w-7xl mx-auto",
           `${user ? "flex-between" : "flex justify-center"}`
         )}
       >
@@ -54,6 +55,21 @@ export default function Nav() {
           >
             Vybes
           </div>
+          {!user && (
+            <IconButton onClick={() => dispatch(setMode())}>
+              {mode === "dark" ? (
+                <DarkMode
+                  sx={{ fontSize: "25px" }}
+                  style={{ color: "white" }}
+                />
+              ) : (
+                <LightMode
+                  sx={{ fontSize: "25px" }}
+                  style={{ color: "black" }}
+                />
+              )}
+            </IconButton>
+          )}
           {user && (
             <div className="relative flex-betweeen hidden sm:block sm:ml-5">
               <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
