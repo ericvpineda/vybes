@@ -30,8 +30,8 @@ export default function CreatePostWidget({ userId, imageName }) {
     const values = {
       userId: user._id,
       body: postInfo,
-      imageUrl: image,
-      imageName: image.name
+      imageUrl: image ? image : "",
+      imageName: image ? image.name : ""
     };
     const form = new FormData();
     for (let key in values) {
