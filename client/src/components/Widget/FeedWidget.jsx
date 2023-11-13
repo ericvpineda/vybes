@@ -5,9 +5,14 @@ import { setPosts } from "state/auth";
 import { getUser } from "utils/utils";
 
 export default function FeedWidget({ isProfile = false }) {
-  const { posts, token, user: userId, friends } = useSelector((state) => state.auth);
+  const {
+    posts,
+    token,
+    user: userId,
+    friends,
+  } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [user, setuser] = useState(null)
+  const [user, setuser] = useState(null);
 
   const getPosts = async () => {
     const response = await fetch("http://localhost:8000/posts", {
@@ -19,12 +24,12 @@ export default function FeedWidget({ isProfile = false }) {
       dispatch(setPosts({ posts: data }));
     }
   };
-  
- 
+
+  // Note: friends needed to update isFriend boolean
   useEffect(() => {
-    getUser({userId, token, setuser})
+    getUser({ userId, token, setuser });
     getPosts();
-  }, [friends]);
+  }, [friends, token, userId]);
 
   return (
     <>
@@ -47,6 +52,7 @@ export default function FeedWidget({ isProfile = false }) {
               }) => (
                 <PostWidget
                   key={_id}
+                  postId={_id}
                   firstName={firstName}
                   lastName={lastName}
                   userId={userId}
@@ -75,6 +81,7 @@ export default function FeedWidget({ isProfile = false }) {
             }) => (
               <PostWidget
                 key={_id}
+                postId={_id}
                 firstName={firstName}
                 lastName={lastName}
                 userId={userId}

@@ -19,7 +19,7 @@ export default function UserWidget() {
 
   useEffect(() => {
     getUser({ userId, token, setuser });
-  }, []);
+  }, [token, userId]);
 
   if (user) {
     var { firstName, lastName, location, profileViews, friends } = user;

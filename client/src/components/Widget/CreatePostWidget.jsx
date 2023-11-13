@@ -16,7 +16,7 @@ import {
   MoreHoizontalOutlined,
 } from "@mui/icons-material";
 import Dropzone from "react-dropzone";
-import { setPosts } from "state/auth";
+import { setLogout, setPosts } from "state/auth";
 import { getUser } from "utils/utils";
 
 export default function CreatePostWidget() {
@@ -26,7 +26,6 @@ export default function CreatePostWidget() {
   const [image, setimage] = useState(null);
   const dispatch = useDispatch()
   const [user, setuser] = useState(null)
-
   const onClickHandler = async () => {
     const values = {
       userId: user._id,
@@ -60,7 +59,7 @@ export default function CreatePostWidget() {
   
   useEffect(() => {
     getUser({ userId, token, setuser });
-  }, []);
+  }, [token, userId]);
 
   return (
     <WidgetWrapper>
