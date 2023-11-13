@@ -60,7 +60,7 @@ export default function CreatePostWidget() {
   
   useEffect(() => {
     getUser({ userId, token, setuser });
-  }, [userId, token]);
+  }, []);
 
   return (
     <WidgetWrapper>

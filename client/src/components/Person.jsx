@@ -11,7 +11,6 @@ export default function Person({
   userId,
   location,
   imageUrl,
-  isFriend,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ export default function Person({
       dispatch(setFriends(friends));
     }
   };
-  console.log("DEBUG: id=", id, userId)
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
