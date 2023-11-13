@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import Dropzone from "react-dropzone";
 import { setLogout, setPosts } from "state/auth";
-import { getUser } from "utils/utils";
+import { HOST_BACKEND, getUser } from "utils/utils";
 
 export default function CreatePostWidget() {
   const [postInfo, setpostInfo] = useState("");
@@ -37,7 +37,7 @@ export default function CreatePostWidget() {
     for (let key in values) {
       form.append(key, values[key]);
     }
-    const response = await fetch(`http://localhost:8000/posts`, {
+    const response = await fetch(`${HOST_BACKEND}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: form,

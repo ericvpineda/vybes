@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostWidget from "./PostWidget";
 import { setPosts } from "state/auth";
-import { getUser } from "utils/utils";
+import { HOST_BACKEND, getUser } from "utils/utils";
 
 export default function FeedWidget({ isProfile = false, userId }) {
   const {
@@ -15,7 +15,7 @@ export default function FeedWidget({ isProfile = false, userId }) {
   const [user, setuser] = useState(null);
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:8000/posts", {
+    const response = await fetch(`${HOST_BACKEND}/posts`, {
       method: "GET",
       headers: { Authorization: "Bearer " + token },
     });
