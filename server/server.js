@@ -10,12 +10,12 @@ import path from "path";
 import {createUser} from "./controllers/auth.js";
 import {createPost} from "./controllers/posts.js";
 import { fileURLToPath } from "url";
-import {GridFsStorage} from 'multer-gridfs-storage';
-import Grid from 'gridfs-stream';
 import { isAuthenticated } from "./middleware/index.js";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
+// import {GridFsStorage} from 'multer-gridfs-storage';
+// import Grid from 'gridfs-stream';
 
 dotenv.config();
 
@@ -23,11 +23,12 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
-const PORT = process.env.PORT || 8001;
+let PORT = 8000;
 let MONGODB_URL = process.env.MONGODB_PROD;
 
 if (process.env.NODE_ENV === 'development') {
     MONGODB_URL = process.env.MONGODB_DEV;
+    PORT = process.env.PORT 
 }
 
 app.use(express.json());
