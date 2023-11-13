@@ -7,13 +7,13 @@ import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
-import {createUser} from "./controllers/auth.js";
-import {createPost} from "./controllers/posts.js";
+import { createUser } from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
 import { fileURLToPath } from "url";
 import { isAuthenticated } from "./middleware/index.js";
-import authRoutes from "./routes/auth.js"
-import userRoutes from "./routes/users.js"
-import postRoutes from "./routes/posts.js"
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
 // import {GridFsStorage} from 'multer-gridfs-storage';
 // import Grid from 'gridfs-stream';
 
@@ -26,16 +26,16 @@ const app = express();
 let PORT = 8000;
 let MONGODB_URL = process.env.MONGODB_PROD;
 
-if (process.env.NODE_ENV === 'development') {
-    MONGODB_URL = process.env.MONGODB_DEV;
-    PORT = process.env.PORT 
+if (process.env.NODE_ENV === "development") {
+  MONGODB_URL = process.env.MONGODB_DEV;
+  PORT = process.env.PORT;
+  app.use(morgan("common"));
 }
 
 app.use(express.json());
 app.use(helmet());
 // Prevent other websites from using current website cross-origin
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
@@ -54,24 +54,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-mongoose.connect(MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log(`Database: ${process.env.NODE_ENV || "production"}.`))
-.catch(() => console.log("Error: Database connection failed."))
+mongoose
+  .connect(MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log(`Database: ${process.env.NODE_ENV || "production"}.`))
+  .catch(() => console.log("Error: Database connection failed."));
 
-// -- Routes with Files --  
+// -- Routes with Files --
 
 // Create user with user image (if available)
 app.post("/auth/register", upload.single("imageUrl"), createUser);
 // Create post with post image (if available)
-app.post("/posts", isAuthenticated, upload.single("imageUrl"), createPost)
+app.post("/posts", isAuthenticated, upload.single("imageUrl"), createPost);
 
 // -- Routes --
-app.use("/auth", authRoutes)
-app.use("/user", userRoutes)
-app.use("/posts", postRoutes)
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
+app.use("/posts", postRoutes);
 
-
-app.listen(PORT, () => console.log(`Server port: ${PORT}.`))
+app.listen(PORT, () => console.log(`Server port: ${PORT}.`));
