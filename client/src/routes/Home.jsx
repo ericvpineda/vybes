@@ -1,6 +1,7 @@
 import AdWidget from "components/Widget/AdWidget";
 import CreatePostWidget from "components/Widget/CreatePostWidget";
 import FeedWidget from "components/Widget/FeedWidget";
+import FriendsWidget from "components/Widget/FriendsWidget";
 import UserWidget from "components/Widget/UserWidget.jsx";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       </div>
       <div className="basis-[28%]">
         <AdWidget/>
+        <FriendsWidget/>
       </div>
     </div>
   );
