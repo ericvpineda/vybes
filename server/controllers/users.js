@@ -17,7 +17,7 @@ const getUserFriends = async (req, res) => {
         const {id} = req.params;
         const user = await User.findById(id);
         const friends = await Promise.all(user.friends.map(id => User.findById(id)));
-        const friendsFormatted = friends.map(({_id, firstname, lastName, location, imageUrl}) => {_id, firstname, lastName, location, imageUrl}) 
+        const friendsFormatted = friends.map(({_id, firstname, lastName, location, imageUrl}) => ({_id, firstname, lastName, location, imageUrl})) 
         res.status(200).json(friendsFormatted);
     } catch (error) {
         res.status(404).json({message: error.message});
@@ -29,10 +29,11 @@ const addRemoveFriend = async (req, res) => {
     try {
         const {id, friendId} = req.params
         const user = await User.findById(id);
-        const friend = await User.findById(id);
-        if (user.friends.includes(friend)) {
-            user.friends.filter(friend => friend.id != friendId)
-            friend.friends.filter(friend => user.id != friend.id)
+        const friend = await User.findById(friendId);
+        if (user.friends.includes(friendId)) {
+            // Note: friends is array of strings
+            user.friends = user.friends.filter(userFriendId => userFriendId != friendId)
+            friend.friends = friend.friends.filter(friendFriendId => friendFriendId != id)
         } else {
             user.friends.push(friendId)
             friend.friends.push(id)

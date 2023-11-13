@@ -11,23 +11,24 @@ export default function Person({
   userId,
   location,
   imageUrl,
+  isFriend,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
+  const { token, user: id } = useSelector((state) => state.auth);
 
   const addRemoveHandler = async () => {
-    const response = await fetch(`http://localhost:8000/${id}/${userId}`, {
+    const response = await fetch(`http://localhost:8000/user/${id}/${userId}`, {
       method: "PATCH",
       headers: { Authorization: "Bearer " + token },
     });
 
     if (response.ok) {
       const friends = await response.json();
-      dispatch(setFriends(friends));
+      dispatch(setFriends({ friends }));
     }
   };
+  console.log("DEBUG: userid, id=", userId, id);
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
@@ -46,11 +47,16 @@ export default function Person({
           </div>
         </div>
       </div>
-      {id !== userId && (
-        <div className="cursor-pointer" onClick={addRemoveHandler}>
-          <PersonRemoveOutlined />
-        </div>
-      )}
+      {id !== userId &&
+        (isFriend ? (
+          <div className="cursor-pointer" onClick={addRemoveHandler}>
+            <PersonRemoveOutlined />
+          </div>
+        ) : (
+          <div className="cursor-pointer" onClick={addRemoveHandler}>
+            <PersonAddOutlined />
+          </div>
+        ))}
     </div>
   );
 }

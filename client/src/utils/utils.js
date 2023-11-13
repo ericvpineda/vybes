@@ -14,4 +14,16 @@ const getUser = async ({userId, token, setuser}) => {
     }
   };
 
-export {classNames, getUser};
+const getFriends = async ({userId, token, setfriends}) => {
+  const response = await fetch(`http://localhost:8000/user/${userId}/friends`, {
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+  });
+  if (response.ok) {
+    const data = await response.json();
+    setfriends(new Set(data));
+  }
+};
+
+
+export {classNames, getUser, getFriends};

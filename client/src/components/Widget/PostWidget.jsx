@@ -17,7 +17,7 @@ export default function PostWidget({
   userImageUrl,
   likes,
   comments,
-  isFriend,
+  isFriend=false,
 }) {
   return (
     <WidgetWrapper>
