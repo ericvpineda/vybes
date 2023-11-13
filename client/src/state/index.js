@@ -18,6 +18,7 @@ const store = configureStore({
       serializableCheck: false,
       immutableCheck: false,
     }),
+    devtools: (process.env.NODE_ENV === "development")
 });
 
 const persistor = persistStore(store);
