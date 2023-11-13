@@ -48,13 +48,12 @@ const likePost = async (req, res) => {
     const { id } = req.params;
     const { userId } = req.body;
     const post = await Post.findById(id);
-
-    if (userId in post.likes && post.likes[userId] == true) {
+    if (post.likes.has(userId)) {
       post.likes.delete(userId);
     } else {
       post.likes.set(userId, true);
     }
-    const updatedPost = await post.findByIdAndUpdate(
+    const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
       { new: true }
