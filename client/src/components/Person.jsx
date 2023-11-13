@@ -4,6 +4,7 @@ import UserImage from "./UserImage";
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { setFriends } from "state/auth";
+import { IconButton } from "@mui/material";
 
 export default function Person({
   firstName,
@@ -49,11 +50,15 @@ export default function Person({
       {id !== userId &&
         (isFriend ? (
           <div className="cursor-pointer" onClick={addRemoveHandler}>
-            <PersonRemoveOutlined />
+            <IconButton>
+              <PersonRemoveOutlined />
+            </IconButton>
           </div>
         ) : (
           <div className="cursor-pointer" onClick={addRemoveHandler}>
-            <PersonAddOutlined />
+            <IconButton>
+              <PersonAddOutlined />
+            </IconButton>
           </div>
         ))}
     </div>
