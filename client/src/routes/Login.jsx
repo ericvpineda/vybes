@@ -24,7 +24,7 @@ export default function Login() {
       if (authenticatedUser) {
         dispatch(
           setLogin({
-            user: authenticatedUser.user,
+            user: authenticatedUser.user._id,
             token: authenticatedUser.accessToken,
           })
         );
