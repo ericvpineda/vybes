@@ -5,18 +5,19 @@ import * as Yup from "yup";
 import { TextField } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Dropzone from "react-dropzone";
+import { HOST_BACKEND } from "utils/utils";
 
 export default function Register() {
   const navigate = useNavigate();
-
   const formSubmitHandler = async (values, props) => {
-
-    const form = new FormData()
+    const form = new FormData();
     for (let key in values) {
-      form.append(key, values[key])
+      form.append(key, values[key]);
     }
-    form.append("imageUrl", values.imageUrl.name)
-    const response = await fetch("http://localhost:8000/auth/register", {
+    if (values.imageUrl) {
+      form.append("imageUrl", values.imageUrl.name);
+    }
+    const response = await fetch(`${HOST_BACKEND}/auth/register`, {
       method: "POST",
       body: form,
     });
@@ -28,7 +29,6 @@ export default function Register() {
       }
       props.resetForm();
     }
-    
   };
 
   const initialValues = {
@@ -91,7 +91,6 @@ export default function Register() {
                   width: "100%",
                   m: "0 0 1rem 0",
                 }}
-                
               />
               <TextField
                 onChange={handleChange}
@@ -157,7 +156,6 @@ export default function Register() {
                 onDrop={(acceptedFiles) =>
                   setFieldValue("imageUrl", acceptedFiles[0])
                 }
-            
               >
                 {({ getRootProps, getInputProps }) => (
                   <div

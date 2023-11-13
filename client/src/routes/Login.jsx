@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setLogin } from "state/auth";
 import { useSelector } from "react-redux";
+import { HOST_BACKEND } from "utils/utils";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Login() {
   const mode = useSelector((state) => state.auth.mode);
 
   const formSubmitHandler = async (values, props) => {
-    const response = await fetch("http://localhost:8000/auth/login", {
+    const response = await fetch(`${HOST_BACKEND}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
