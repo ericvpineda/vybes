@@ -5,7 +5,7 @@ import { setPosts } from "state/auth";
 import { getUser } from "utils/utils";
 
 export default function FeedWidget({ isProfile = false }) {
-  const { posts, token, user: userId } = useSelector((state) => state.auth);
+  const { posts, token, user: userId, friends } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [user, setuser] = useState(null)
 
@@ -24,7 +24,7 @@ export default function FeedWidget({ isProfile = false }) {
   useEffect(() => {
     getUser({userId, token, setuser})
     getPosts();
-  }, []);
+  }, [friends]);
 
   return (
     <>

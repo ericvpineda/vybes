@@ -15,7 +15,7 @@ export default function Person({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, user: id } = useSelector((state) => state.auth);
+  const { token, user: id, friends } = useSelector((state) => state.auth);
 
   const addRemoveHandler = async () => {
     const response = await fetch(`http://localhost:8000/user/${id}/${userId}`, {
@@ -28,7 +28,6 @@ export default function Person({
       dispatch(setFriends({ friends }));
     }
   };
-  console.log("DEBUG: userid, id=", userId, id);
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center">
