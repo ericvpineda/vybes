@@ -10,6 +10,7 @@ import HorizontalLine from "components/HorizontalLine";
 import { IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout, setPost } from "state/auth";
+import { useState } from "react";
 
 export default function PostWidget({
   firstName,
@@ -24,22 +25,25 @@ export default function PostWidget({
   postId,
   isFriend = false,
 }) {
+  const { token, user: currUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [isShowingComments, setisShowingComments] = useState(false);
 
-  const {token, user: currUser } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
   const toggleLike = async () => {
     const response = await fetch(`http://localhost:8000/posts/${postId}`, {
       method: "PATCH",
-      headers: {Authorization: "Bearer " + token, "Content-Type": "application/json"},
-      body: JSON.stringify({userId: currUser})
-    })
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: currUser }),
+    });
     if (response.ok) {
-      const updatedPost = await response.json()
-      dispatch(setPost({post: updatedPost}))
+      const updatedPost = await response.json();
+      dispatch(setPost({ post: updatedPost }));
     }
-  }
+  };
 
-  console.log("DEBUG: userid in likes", typeof likes)
   return (
     <WidgetWrapper>
       <Person
@@ -60,7 +64,6 @@ export default function PostWidget({
           />
         </div>
       )}
-      <HorizontalLine />
 
       <div className="flex justify-between">
         <div className="flex">
@@ -75,7 +78,9 @@ export default function PostWidget({
             <p className="ml-1 mr-3">{Object.keys(likes).length}</p>
           </div>
           <div className="flex items-center">
-            <IconButton>
+            <IconButton
+              onClick={() => setisShowingComments(!isShowingComments)}
+            >
               <ChatBubbleOutlined />
             </IconButton>
             <p className="ml-1">{comments.length}</p>
@@ -88,6 +93,16 @@ export default function PostWidget({
           <p className="ml-1">0</p>
         </div>
       </div>
+      {isShowingComments && comments && comments.length > 0 && (
+        <>
+          {comments.map((comment) => (
+            <>
+             <HorizontalLine/>
+              <div className="text-sm text-lightNeutral-300">{comment}</div>
+            </>
+          ))}
+        </>
+      )}
     </WidgetWrapper>
   );
 }

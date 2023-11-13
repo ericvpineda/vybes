@@ -13,17 +13,19 @@ import HorizontalLine from "components/HorizontalLine";
 import { getUser } from "utils/utils";
 
 export default function UserWidget() {
-  const {token, user:userId} = useSelector((state) => state.auth);
+  const {token, user:userId, friends: userFriends} = useSelector((state) => state.auth);
   const [user, setuser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     getUser({ userId, token, setuser });
-  }, [token, userId]);
+  }, [token, userId, userFriends ]);
 
-  if (user) {
-    var { firstName, lastName, location, profileViews, friends } = user;
+  if (!user) {
+    return null;
   }
+
+  const { firstName, lastName, location, profileViews, friends } = user;
 
   return (
     <>
