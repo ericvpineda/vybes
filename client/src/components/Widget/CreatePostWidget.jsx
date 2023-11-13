@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import WidgetWrapper from "./WidgetWrapper";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserImage from "components/UserImage";
 import { InputBase } from "@mui/material";
 import HorizontalLine from "components/HorizontalLine";
@@ -17,14 +17,15 @@ import {
 } from "@mui/icons-material";
 import Dropzone from "react-dropzone";
 import { setPosts } from "state/auth";
+import { getUser } from "utils/utils";
 
-export default function CreatePostWidget({ userId, imageName }) {
+export default function CreatePostWidget() {
   const [postInfo, setpostInfo] = useState("");
-  const token = useSelector((state) => state.auth.token);
-  const user = useSelector((state) => state.auth.user);
+  const {token, user:userId} = useSelector((state) => state.auth);
   const [buttonText, setbuttonText] = useState("Post");
   const [image, setimage] = useState(null);
   const dispatch = useDispatch()
+  const [user, setuser] = useState(null)
 
   const onClickHandler = async () => {
     const values = {
@@ -56,10 +57,15 @@ export default function CreatePostWidget({ userId, imageName }) {
     }
   };
 
+  
+  useEffect(() => {
+    getUser({ userId, token, setuser });
+  }, [userId, token]);
+
   return (
     <WidgetWrapper>
       <div className="flex w-full">
-        <UserImage name={imageName} />
+        <UserImage name={user ? user.imageUrl : ""} />
         <InputBase
           placeholder="Tell me some good news..."
           sx={{

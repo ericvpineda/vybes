@@ -24,18 +24,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state/auth.js";
 import { useNavigate } from "react-router-dom";
 import { classNames } from "utils/utils";
+import { useEffect } from "react";
+import { getUser } from "utils/utils";
 
 // Note:
 // - use MUI elements for components?
 export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const userId = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
   const mode = useSelector((state) => state.auth.mode);
-  const userFullName =
-    (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
   const [isMobileMenuToggled, setisMobileMenuToggled] = useState(false);
   const iconColor = mode === "dark" ? "white" : "black";
+  const [user, setuser] = useState(null);
+  const userFullName =
+    (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
+
+  useEffect(() => {
+    getUser({ userId, token, setuser });
+  }, [userId, token]);
+
   return (
     <nav className="fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full z-10">
       <div
