@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import { getFriends } from "utils/utils";
 import Person from "components/Person";
 
-export default function FriendsWidget() {
-  const { user: userId, token, friends:userFriends } = useSelector((state) => state.auth);
+export default function FriendsWidget({userId}) {
+  const { token, friends:userFriends } = useSelector((state) => state.auth);
   const [friends, setfriends] = useState(null);
 
   useEffect(() => {

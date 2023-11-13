@@ -4,13 +4,13 @@ import PostWidget from "./PostWidget";
 import { setPosts } from "state/auth";
 import { getUser } from "utils/utils";
 
-export default function FeedWidget({ isProfile = false }) {
+export default function FeedWidget({ isProfile = false, userId }) {
   const {
     posts,
     token,
-    user: userId,
     friends,
   } = useSelector((state) => state.auth);
+  
   const dispatch = useDispatch();
   const [user, setuser] = useState(null);
 

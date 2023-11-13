@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 import HorizontalLine from "components/HorizontalLine";
 import { getUser } from "utils/utils";
 
-export default function UserWidget() {
-  const {token, user:userId, friends: userFriends} = useSelector((state) => state.auth);
+export default function UserWidget({userId}) {
+  const {token, friends: userFriends } = useSelector((state) => state.auth);
   const [user, setuser] = useState(null);
   const navigate = useNavigate();
 
