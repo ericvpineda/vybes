@@ -18,7 +18,7 @@ export default function FriendsWidget() {
       <div className="font-bold text-md mb-2">Friends</div>
       {friends &&
         friends.map(({ firstName, lastName, _id, location, imageUrl }) => (
-          <div className="w-full mb-2">
+          <div key={_id} className="w-full mb-2">
               <Person
                 firstName={firstName}
                 lastName={lastName}
