@@ -109,7 +109,7 @@ export default function CreatePostWidget() {
                 </>
               ) : (
                 <div className="flex items-center">
-                  <div className="mr-3 button_text_nowrap">
+                  <div className="mr-3 button_text_nowrap darkmode_text_header">
                     {image.name}
                   </div>
                   <IconButton style={{ color: iconColor }}>

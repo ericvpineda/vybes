@@ -12,7 +12,7 @@ export default function UserImage({ name, size = "60px" }) {
           className="object-cover rounded-[50%] min-h-[60px] min-w-[60px]"
         />
       ) : (
-        <Face6Icon className="object-cover rounded-[50%] min-h-[60px] min-w-[60px] dark:bg-gray-2300"></Face6Icon>
+        <Face6Icon className="object-cover rounded-[50%] min-h-[60px] min-w-[60px] dark:bg-gray-200"/>
       )}
     </Box>
   );
