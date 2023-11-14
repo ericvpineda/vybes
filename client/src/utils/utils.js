@@ -39,6 +39,8 @@ const getFriends = async ({ userId, token, setfriends }) => {
   if (response.ok) {
     const data = await response.json();
     setfriends(data);
+  } else{
+    setfriends(null)
   }
 };
 

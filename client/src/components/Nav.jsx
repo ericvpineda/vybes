@@ -55,7 +55,7 @@ export default function Nav() {
           <div
             onClick={() => navigate("/")}
             className={classNames(
-              "cursor-pointer font-bold text-lg text-lightPrimary-500",
+              "cursor-pointer font-bold text-lg text-lightPrimary-500 dark:text-darkPrimary-0",
               "hover:text-lightPrimary-0 font-roboto uppercase"
             )}
           >
@@ -79,14 +79,14 @@ export default function Nav() {
           {user && (
             <div className="relative flex-betweeen hidden sm:block sm:ml-5">
               <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
-                <IconButton>
+                <IconButton style={{ color: iconColor }}>
                   <Search />
                 </IconButton>
               </div>
               <input
                 id="search"
                 name="search"
-                className="block w-full rounded-md border-0 bg-lightNeutral-800 dark:bg-darkNeutral-900 py-[0.5rem] px-[1.5rem] text-gray-300 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 bg-lightNeutral-800 dark:bg-darkNeutral-900 py-[0.5rem] px-[1.5rem] text-gray-300 dark:text-darkNeutral-200 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
                 placeholder="Search"
                 type="search"
               />

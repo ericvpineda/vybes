@@ -7,9 +7,11 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Dropzone from "react-dropzone";
 import { HOST_BACKEND } from "utils/utils";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 export default function Register() {
   const navigate = useNavigate();
+  const mode = useSelector((state) => state.auth.mode);
   const formSubmitHandler = async (values, props) => {
     const form = new FormData();
     for (let key in values) {
@@ -25,7 +27,7 @@ export default function Register() {
 
     const registeredUser = await response.json();
     if (response.ok) {
-      toast.success(`Welcome ${registeredUser.firstName}!` )
+      toast.success(`Welcome ${registeredUser.firstName}!`);
       navigate("/login");
       props.resetForm();
     } else {
@@ -52,9 +54,9 @@ export default function Register() {
   });
 
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex justify-center items-center w-full ">
       {/* Registration Header  */}
-      <div className="w-full max-w-md bg-white p-7">
+      <div className="w-full max-w-md bg-white p-7 bg-white dark:bg-darkBackground-0">
         <div className="border-b border-gray-900/10 pb-5 flex justify-center">
           <h2 className="text-xl font-semibold leading-7 text-lightPrimary-500 uppercase">
             New Vybe Account
@@ -92,6 +94,28 @@ export default function Register() {
                 sx={{
                   width: "100%",
                   m: "0 0 1rem 0",
+                  ...(mode === "dark" && {
+                    "& .MuiInputLabel-root": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "white",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused": {
+                        borderColor: "white",
+                      },
+                    },
+                  }),
                 }}
               />
               <TextField
@@ -105,6 +129,28 @@ export default function Register() {
                 sx={{
                   width: "100%",
                   m: "0 0 1rem 0",
+                  ...(mode === "dark" && {
+                    "& .MuiInputLabel-root": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "white",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused": {
+                        borderColor: "white",
+                      },
+                    },
+                  }),
                 }}
               />
 
@@ -119,6 +165,28 @@ export default function Register() {
                 sx={{
                   width: "100%",
                   m: "0 0 1rem 0",
+                  ...(mode === "dark" && {
+                    "& .MuiInputLabel-root": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "white",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused": {
+                        borderColor: "white",
+                      },
+                    },
+                  }),
                 }}
               />
 
@@ -134,6 +202,28 @@ export default function Register() {
                 sx={{
                   width: "100%",
                   m: "0 0 1rem 0",
+                  ...(mode === "dark" && {
+                    "& .MuiInputLabel-root": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "white",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused": {
+                        borderColor: "white",
+                      },
+                    },
+                  }),
                 }}
               />
 
@@ -149,6 +239,28 @@ export default function Register() {
                 sx={{
                   width: "100%",
                   m: "0 0 1rem 0",
+                  ...(mode === "dark" && {
+                    "& .MuiInputLabel-root": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-input": {
+                      color: "white",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "white",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "white",
+                      },
+                      "&.Mui-focused": {
+                        borderColor: "white",
+                      },
+                    },
+                  }),
                 }}
               />
 
@@ -161,7 +273,7 @@ export default function Register() {
               >
                 {({ getRootProps, getInputProps }) => (
                   <div
-                    className="col-span-full cursor-pointer text-sm relative cursor-pointer rounded-md bg-white font-semibold text-lightPrimary-500 focus-within:outline-none focus-within:ring-2 focus-within:text-lightPrimary-0 focus-within:ring-offset-2 hover:text-lightPrimary-0"
+                    className="col-span-full cursor-pointer text-sm relative cursor-pointer rounded-md bg-white dark:bg-darkNeutral-900 font-semibold text-lightPrimary-500 focus-within:outline-none focus-within:ring-2 focus-within:text-lightPrimary-0 focus-within:ring-offset-2 hover:text-lightPrimary-0"
                     {...getRootProps()}
                   >
                     <div className="text-sm mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -179,10 +291,10 @@ export default function Register() {
                             aria-hidden="true"
                           />
                           <div className="mt-4 flex flex-col text-sm leading-6 text-gray-600">
-                            <p>Upload a Profile Picture</p>
-                            <p className="pl-1">or drag and drop</p>
+                            <p className="dark:text-gray-100">Upload a Profile Picture</p>
+                            <p className="pl-1 dark:text-gray-300">or drag and drop</p>
                           </div>
-                          <p className="text-xs leading-5 text-gray-600">
+                          <p className="text-xs leading-5 text-gray-600 dark:text-gray-300">
                             PNG, JPG up to 10MB
                           </p>
                         </div>
@@ -208,7 +320,7 @@ export default function Register() {
                   resetForm();
                   navigate("/login");
                 }}
-                className="cursor-pointer text-blue-800 underline"
+                className="cursor-pointer text-blue-800 dark:text-gray-100 underline"
               >
                 Already have an account? Login here.
               </div>
