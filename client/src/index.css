@@ -42,6 +42,18 @@ html {
   @apply whitespace-nowrap overflow-y-hidden max-w-[5rem] no-scrollbar
 }
 
+.darkmode_text_paragraph {
+  @apply text-lightNeutral-200 dark:text-darkNeutral-500
+}
+
+.darkmode_text_primary {
+  @apply text-lightPrimary-500 dark:text-darkPrimary-0
+}
+
+.darkmode_text_header {
+  @apply text-lightNeutral-0 pl-1 dark:text-darkNeutral-200
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
