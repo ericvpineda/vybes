@@ -40,7 +40,7 @@ export default function UserWidget({ userId }) {
             <UserImage name={user ? user.imageUrl : ""} />
           </div>
           <div>
-            <h4 className="font-bold text-xl text-lightPrimary-0 dark:text-darkPrimary-0">
+            <h4 className="font-bold text-xl text-lightPrimary-500 dark:text-darkPrimary-0">
               {firstName} {lastName}
             </h4>
             <div className="text-lightNeutral-200 dark:text-darkNeutral-500">

@@ -19,20 +19,22 @@ import Dropzone from "react-dropzone";
 import { setLogout, setPosts } from "state/auth";
 import { HOST_BACKEND, getUser } from "utils/utils";
 import toast from "react-hot-toast";
+import { IconButton } from "@mui/material";
 
 export default function CreatePostWidget() {
   const [postInfo, setpostInfo] = useState("");
-  const {token, user:userId} = useSelector((state) => state.auth);
+  const { token, user: userId, mode } = useSelector((state) => state.auth);
   const [buttonText, setbuttonText] = useState("Post");
   const [image, setimage] = useState(null);
-  const dispatch = useDispatch()
-  const [user, setuser] = useState(null)
+  const dispatch = useDispatch();
+  const [user, setuser] = useState(null);
+  const iconColor = mode === "dark" ? "white" : "black";
   const onClickHandler = async () => {
     const values = {
       userId: user._id,
       body: postInfo,
       imageUrl: image ? image : "",
-      imageName: image ? image.name : ""
+      imageName: image ? image.name : "",
     };
     const form = new FormData();
     for (let key in values) {
@@ -44,36 +46,36 @@ export default function CreatePostWidget() {
       body: form,
     });
 
-    const posts = await response.json()
+    const posts = await response.json();
 
     if (response.ok) {
-      toast.success("Post success!")
+      toast.success("Post success!");
       setbuttonText("Done!");
       setTimeout(() => setbuttonText("Post"), 800);
       setimage(null);
-      setpostInfo("")
-      dispatch(setPosts({posts}))
+      setpostInfo("");
+      dispatch(setPosts({ posts }));
     } else {
       // TODO: Reply back to user with failed response
-      toast.error("Unable to create post.")
+      toast.error("Unable to create post.");
     }
   };
 
-  
   useEffect(() => {
     getUser({ userId, token, setuser });
   }, [token, userId]);
 
   return (
     <WidgetWrapper>
-      <div className="flex w-full">
+      <div className="flex w-full ">
         <UserImage name={user ? user.imageUrl : ""} />
         <InputBase
           placeholder="Tell me some good news..."
           sx={{
             width: "100%",
             m: "0 0 0 1rem",
-            backgroundColor: "#eee",
+            backgroundColor: mode === "dark" ? "#333" : "#eee",
+            color: mode === "dark" ? "white" : "#gray",
             borderRadius: "2rem",
             padding: "1rem 2rem",
           }}
@@ -85,7 +87,7 @@ export default function CreatePostWidget() {
         <Dropzone
           acceptedFiles=".jpg,.jpeg,.png"
           multiple={false}
-          onDrop={acceptedFiles => setimage(acceptedFiles[0])}
+          onDrop={(acceptedFiles) => setimage(acceptedFiles[0])}
         >
           {({ getRootProps, getInputProps }) => (
             <div className="create_post_button" {...getRootProps()}>
@@ -98,33 +100,70 @@ export default function CreatePostWidget() {
               />
               {!image ? (
                 <>
-                  {" "}
-                  <AddPhotoAlternateIcon />
-                  <p className="sm:ml-1 hidden sm:block">Image</p>
+                  <IconButton style={{ color: iconColor }}>
+                    <AddPhotoAlternateIcon />
+                  </IconButton>
+                  <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+                    Image
+                  </p>
                 </>
               ) : (
                 <div className="flex items-center">
-                  <div className="mr-3 create_post_button_action">{image.name}</div>
-                  <EditOutlined />
+                  <div className="mr-3 create_post_button_action">
+                    {image.name}
+                  </div>
+                  <IconButton style={{ color: iconColor }}>
+                    <EditOutlined />
+                  </IconButton>
                 </div>
               )}
             </div>
           )}
         </Dropzone>
         <div className="create_post_button">
-          <AttachFileIcon />
-          <p className="sm:ml-1 hidden sm:block">Attachment</p>
+          <IconButton style={{ color: iconColor }}>
+            <AttachFileIcon />
+          </IconButton>
+          <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+            Attachment
+          </p>
         </div>
         <div className="create_post_button">
-          <MicOutlined />
-          <p className="sm:ml-1 hidden sm:block">Record</p>
+          <IconButton style={{ color: iconColor }}>
+            <MicOutlined />
+          </IconButton>
+          <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+            Record
+          </p>
         </div>
         <div className="create_post_button">
-          <VideoCameraBackIcon />
-          <p className="sm:ml-1 hidden sm:block">Video</p>
+          <IconButton style={{ color: iconColor }}>
+            <VideoCameraBackIcon />
+          </IconButton>
+          <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+            Video
+          </p>
         </div>
-        <Button variant="contained" onClick={onClickHandler} disabled={postInfo.length === 0 ? true : false}>
-          {buttonText}
+
+        <Button
+          variant="contained"
+          onClick={onClickHandler}
+          disabled={postInfo.length === 0 ? true : false}
+          style={{
+            cursor: "pointer",
+
+          }}
+          sx={{
+            p: "0.25rem 0 0 0",
+            backgroundColor: mode === "dark" ? "#40916c" : "#309a4f",
+            "&:hover": {
+              backgroundColor: mode === "dark" ? "#2d6a4f": "#40916c",
+            },
+          }}
+        >
+          <span className="text-black dark:text-darkNeutral-200">
+            {buttonText}
+          </span>
         </Button>
       </div>
     </WidgetWrapper>
