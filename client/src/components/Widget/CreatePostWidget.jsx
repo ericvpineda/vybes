@@ -18,8 +18,11 @@ import {
 import Dropzone from "react-dropzone";
 import { setLogout, setPosts } from "state/auth";
 import { HOST_BACKEND, getUser } from "utils/utils";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function CreatePostWidget() {
+  const navigate = useNavigate();
   const [postInfo, setpostInfo] = useState("");
   const {token, user:userId} = useSelector((state) => state.auth);
   const [buttonText, setbuttonText] = useState("Post");
@@ -46,6 +49,7 @@ export default function CreatePostWidget() {
     const posts = await response.json()
 
     if (response.ok) {
+      toast.success("Post success!")
       setbuttonText("Done!");
       setTimeout(() => setbuttonText("Post"), 800);
       setimage(null);
@@ -53,12 +57,13 @@ export default function CreatePostWidget() {
       dispatch(setPosts({posts}))
     } else {
       // TODO: Reply back to user with failed response
+      toast.error("Unable to create post.")
     }
   };
 
   
   useEffect(() => {
-    getUser({ userId, token, setuser });
+    getUser({ userId, token, setuser, navigate });
   }, [token, userId]);
 
   return (

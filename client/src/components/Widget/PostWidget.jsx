@@ -11,6 +11,8 @@ import { IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout, setPost } from "state/auth";
 import { useState } from "react";
+import { HOST_BACKEND } from "utils/utils";
+import toast from "react-hot-toast";
 
 export default function PostWidget({
   firstName,
@@ -30,7 +32,7 @@ export default function PostWidget({
   const [isShowingComments, setisShowingComments] = useState(false);
 
   const toggleLike = async () => {
-    const response = await fetch(`http://localhost:8000/posts/${postId}`, {
+    const response = await fetch(`${HOST_BACKEND}/posts/${postId}`, {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + token,
@@ -41,6 +43,8 @@ export default function PostWidget({
     if (response.ok) {
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
+    } else {
+      toast.error("Unable to perform post action.")
     }
   };
 

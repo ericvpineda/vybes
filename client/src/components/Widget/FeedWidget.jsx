@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import PostWidget from "./PostWidget";
 import { setPosts } from "state/auth";
 import { HOST_BACKEND, getUser } from "utils/utils";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function FeedWidget({ isProfile = false, userId }) {
   const {
@@ -13,6 +15,7 @@ export default function FeedWidget({ isProfile = false, userId }) {
   
   const dispatch = useDispatch();
   const [user, setuser] = useState(null);
+  const navigate = useNavigate();
 
   const getPosts = async () => {
     const response = await fetch(`${HOST_BACKEND}/posts`, {
@@ -22,12 +25,14 @@ export default function FeedWidget({ isProfile = false, userId }) {
     if (response.ok) {
       const data = await response.json();
       dispatch(setPosts({ posts: data }));
+    } else {
+      toast.error("Unable to fetch feed posts.")
     }
   };
 
   // Note: friends needed to update isFriend boolean
   useEffect(() => {
-    getUser({ userId, token, setuser });
+    getUser({ userId, token, setuser, navigate });
     getPosts();
   }, [friends, token, userId]);
 

@@ -42,7 +42,7 @@ export default function Nav() {
     (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
 
   useEffect(() => {
-    getUser({ userId, token, setuser });
+    getUser({ userId, token, setuser, navigate });
   }, [userId, token]);
 
   return (

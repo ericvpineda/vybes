@@ -5,6 +5,8 @@ import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { setFriends } from "state/auth";
 import { IconButton } from "@mui/material";
+import { HOST_BACKEND } from "utils/utils";
+import toast from "react-hot-toast";
 
 export default function Person({
   firstName,
@@ -19,7 +21,7 @@ export default function Person({
   const { token, user: id } = useSelector((state) => state.auth);
 
   const addRemoveHandler = async () => {
-    const response = await fetch(`http://localhost:8000/user/${id}/${userId}`, {
+    const response = await fetch(`${HOST_BACKEND}/user/${id}/${userId}`, {
       method: "PATCH",
       headers: { Authorization: "Bearer " + token },
     });
@@ -27,6 +29,8 @@ export default function Person({
     if (response.ok) {
       const friends = await response.json();
       dispatch(setFriends({ friends }));
+    } else {
+      toast.error("Unable to add/remove selected friend.")
     }
   };
   return (

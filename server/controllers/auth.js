@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
     if (!foundUser) {
       const savedUser = await user.save();
       // Note: Json to allow frontend to recieve response  
-      res.status(201).json({savedUser}); 
+      res.status(201).json(savedUser); 
     } else {
       res.status(500).json({error: "User already exists."})
     }

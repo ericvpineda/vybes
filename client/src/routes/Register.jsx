@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Dropzone from "react-dropzone";
 import { HOST_BACKEND } from "utils/utils";
+import toast from "react-hot-toast";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,10 +25,11 @@ export default function Register() {
 
     const registeredUser = await response.json();
     if (response.ok) {
-      if (registeredUser) {
-        navigate("/login");
-      }
+      toast.success(`Welcome ${registeredUser.firstName}!` )
+      navigate("/login");
       props.resetForm();
+    } else {
+      toast.error(registeredUser.message);
     }
   };
 

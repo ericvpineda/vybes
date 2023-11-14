@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 let HOST_FRONTEND = "https://vybes.onrender.com";
 let HOST_BACKEND = "https://vybes-backend.onrender.com";
 
@@ -10,7 +12,7 @@ const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const getUser = async ({ userId, token, setuser }) => {
+const getUser = async ({ userId, token, setuser, navigate }) => {
   if (userId && token) {
     const response = await fetch(`${HOST_BACKEND}/user/${userId}`, {
       method: "GET",
@@ -22,9 +24,11 @@ const getUser = async ({ userId, token, setuser }) => {
       setuser(user);
     } else {
       setuser(null);
+      toast.error("Unable to fetch given user.")
     }
   } else {
-    setuser(null);
+    toast.error("No user selected.")
+    navigate("/login")
   }
 };
 

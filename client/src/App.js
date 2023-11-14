@@ -6,7 +6,6 @@ import Profile from "./routes/Profile";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
-import SideBar from "./components/SideBar";
 import RootLayout from "layout/RootLayout";
 import { Navigate } from "react-router-dom";
 

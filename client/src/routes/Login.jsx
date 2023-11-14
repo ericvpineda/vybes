@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state/auth";
 import { useSelector } from "react-redux";
 import { HOST_BACKEND } from "utils/utils";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,19 +23,16 @@ export default function Login() {
     const authenticatedUser = await response.json();
 
     if (response.ok) {
-      if (authenticatedUser) {
-        dispatch(
-          setLogin({
-            user: authenticatedUser.user._id,
-            token: authenticatedUser.accessToken,
-          })
-        );
-        props.resetForm();
-        navigate("/");
-      }
+      dispatch(
+        setLogin({
+          user: authenticatedUser.user._id,
+          token: authenticatedUser.accessToken,
+        })
+      );
+      props.resetForm();
+      navigate("/");
     } else {
-      // TODO: Show UI for incorrect login
-      console.log(authenticatedUser.message);
+      toast.error(authenticatedUser.message);
     }
   };
 
