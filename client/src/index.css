@@ -42,7 +42,7 @@ html {
   @apply whitespace-nowrap overflow-y-hidden max-w-[5rem] no-scrollbar
 }
 .darkmode_create_button_text {
-  @apply text-lightNeutral-200 dark:text-darkNeutral-200
+  @apply text-[1rem] text-lightNeutral-200 dark:text-darkNeutral-200
 }
 
 .darkmode_text_paragraph {

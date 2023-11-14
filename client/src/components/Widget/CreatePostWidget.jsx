@@ -100,12 +100,14 @@ export default function CreatePostWidget() {
               />
               {!image ? (
                 <>
-                  <IconButton style={{ color: iconColor }}>
+                  <IconButton
+                    style={{ color: iconColor, borderRadius: "10px" }}
+                  >
                     <AddPhotoAlternateIcon />
+                    <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
+                      Image
+                    </p>
                   </IconButton>
-                  <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
-                    Image
-                  </p>
                 </>
               ) : (
                 <div className="flex items-center">
@@ -121,28 +123,28 @@ export default function CreatePostWidget() {
           )}
         </Dropzone>
         <div className="create_post_button">
-          <IconButton style={{ color: iconColor }}>
+          <IconButton style={{ color: iconColor, borderRadius: "10px" }}>
             <AttachFileIcon />
-          </IconButton>
           <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
             Attachment
           </p>
+          </IconButton>
         </div>
         <div className="create_post_button">
-          <IconButton style={{ color: iconColor }}>
+          <IconButton style={{ color: iconColor, borderRadius: "10px" }}>
             <MicOutlined />
-          </IconButton>
           <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
             Record
           </p>
+          </IconButton>
         </div>
         <div className="create_post_button">
-          <IconButton style={{ color: iconColor }}>
+          <IconButton style={{ color: iconColor, borderRadius: "10px" }}>
             <VideoCameraBackIcon />
-          </IconButton>
           <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
             Video
           </p>
+          </IconButton>
         </div>
 
         <Button
@@ -161,9 +163,7 @@ export default function CreatePostWidget() {
             },
           }}
         >
-          <span className="text-darkNeutral-200">
-            {buttonText}
-          </span>
+          <span className="text-darkNeutral-200">{buttonText}</span>
         </Button>
       </div>
     </WidgetWrapper>
