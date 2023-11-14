@@ -38,8 +38,11 @@ html {
   @apply cursor-pointer flex items-center sm:px-4 px-6 border-r-2 border-gray-300 border-0 dark:border-gray-700
 }
 
-.create_post_button_action {
+.button_text_nowrap {
   @apply whitespace-nowrap overflow-y-hidden max-w-[5rem] no-scrollbar
+}
+.darkmode_create_button_text {
+  @apply text-lightNeutral-200 dark:text-darkNeutral-200
 }
 
 .darkmode_text_paragraph {
@@ -51,7 +54,11 @@ html {
 }
 
 .darkmode_text_header {
-  @apply text-lightNeutral-0 pl-1 dark:text-darkNeutral-200
+  @apply text-lightNeutral-0 dark:text-darkNeutral-200
+}
+
+.darkmode_input_bg {
+  @apply bg-lightNeutral-800 dark:bg-darkNeutral-900
 }
 
 .no-scrollbar::-webkit-scrollbar {

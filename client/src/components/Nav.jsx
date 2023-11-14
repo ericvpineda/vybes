@@ -55,8 +55,8 @@ export default function Nav() {
           <div
             onClick={() => navigate("/")}
             className={classNames(
-              "cursor-pointer font-bold text-lg text-lightPrimary-500 dark:text-darkPrimary-0",
-              "hover:text-lightPrimary-0 font-roboto uppercase"
+              "cursor-pointer font-bold text-lg darkmode_text_primary",
+              "hover:text-lightPrimary-500 font-roboto uppercase"
             )}
           >
             Vybes
@@ -86,7 +86,7 @@ export default function Nav() {
               <input
                 id="search"
                 name="search"
-                className="block w-full rounded-md border-0 bg-lightNeutral-800 dark:bg-darkNeutral-900 py-[0.5rem] px-[1.5rem] text-gray-300 dark:text-darkNeutral-200 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 darkmode_input_bg py-[0.5rem] px-[1.5rem] text-gray-300 dark:text-darkNeutral-200 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
                 placeholder="Search"
                 type="search"
               />
@@ -123,7 +123,7 @@ export default function Nav() {
             </IconButton>
             <FormControl variant="standard" value={userFullName}>
               <Select
-                className="bg-lightNeutral-800 dark:bg-darkNeutral-900 dark:text-gray-300"
+                className="darkmode_input_bg dark:text-gray-300"
                 value={userFullName}
                 input={
                   <InputBase
@@ -176,7 +176,7 @@ export default function Nav() {
             maxWidth="500px"
             minWidth="300px"
             // backgroundColor={backgroundColor}
-            className="flex flex-col items-center bg-lightNeutral-900 dark:bg-darkBackground-0"
+            className="flex flex-col items-center darkmode_input_bg"
           >
             <div className="flex justify-end p-4">
               <IconButton
@@ -213,7 +213,7 @@ export default function Nav() {
             </IconButton>
             <FormControl variant="standard" value={userFullName}>
               <Select
-                className="bg-lightNeutral-800 dark:bg-darkNeutral-900 dark:text-gray-300"
+                className="darkmode_input_bg dark:text-gray-300"
                 value={userFullName}
                 sx={{
                   width: "150px",
@@ -222,6 +222,7 @@ export default function Nav() {
                   "& .MuiSvgIcon-root": {
                     pr: "0.25rem",
                     width: "3rem",
+                    color: iconColor
                   },
                 }}
                 input={<InputBase />}

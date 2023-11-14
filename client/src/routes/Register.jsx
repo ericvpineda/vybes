@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 export default function Register() {
   const navigate = useNavigate();
   const mode = useSelector((state) => state.auth.mode);
+  const labelnameColor = "#40916c";
   const formSubmitHandler = async (values, props) => {
     const form = new FormData();
     for (let key in values) {
@@ -101,6 +102,9 @@ export default function Register() {
                     "& .MuiOutlinedInput-input": {
                       color: "white",
                     },
+                    "& .Mui-focused": {
+                      color: labelnameColor,
+                    },
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
                         borderColor: "white",
@@ -135,6 +139,9 @@ export default function Register() {
                     },
                     "& .MuiOutlinedInput-input": {
                       color: "white",
+                    },
+                    "& .Mui-focused": {
+                      color: labelnameColor,
                     },
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
@@ -171,6 +178,9 @@ export default function Register() {
                     },
                     "& .MuiOutlinedInput-input": {
                       color: "white",
+                    },
+                    "& .Mui-focused": {
+                      color: labelnameColor,
                     },
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
@@ -209,6 +219,9 @@ export default function Register() {
                     "& .MuiOutlinedInput-input": {
                       color: "white",
                     },
+                    "& .Mui-focused": {
+                      color: labelnameColor,
+                    },
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
                         borderColor: "white",
@@ -217,9 +230,6 @@ export default function Register() {
                         borderColor: "white",
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "white",
-                      },
-                      "&.Mui-focused": {
                         borderColor: "white",
                       },
                     },
@@ -245,6 +255,9 @@ export default function Register() {
                     },
                     "& .MuiOutlinedInput-input": {
                       color: "white",
+                    },
+                    "& .Mui-focused": {
+                      color: labelnameColor,
                     },
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
@@ -291,8 +304,12 @@ export default function Register() {
                             aria-hidden="true"
                           />
                           <div className="mt-4 flex flex-col text-sm leading-6 text-gray-600">
-                            <p className="dark:text-gray-100">Upload a Profile Picture</p>
-                            <p className="pl-1 dark:text-gray-300">or drag and drop</p>
+                            <p className="dark:text-gray-100">
+                              Upload a Profile Picture
+                            </p>
+                            <p className="pl-1 dark:text-gray-300">
+                              or drag and drop
+                            </p>
                           </div>
                           <p className="text-xs leading-5 text-gray-600 dark:text-gray-300">
                             PNG, JPG up to 10MB

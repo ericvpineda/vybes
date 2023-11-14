@@ -27,7 +27,7 @@ export default function UserWidget({ userId }) {
     return null;
   }
 
-  const { firstName, lastName, location, profileViews, friends } = user;
+  const { firstName, lastName, location, profileViews, friends, occupation } = user;
 
   return (
     <WidgetWrapper>
@@ -40,32 +40,32 @@ export default function UserWidget({ userId }) {
             <UserImage name={user ? user.imageUrl : ""} />
           </div>
           <div>
-            <h4 className="font-bold text-xl text-lightPrimary-500 dark:text-darkPrimary-0">
+            <h4 className="font-bold text-xl darkmode_text_primary">
               {firstName} {lastName}
             </h4>
-            <div className="text-lightNeutral-200 dark:text-darkNeutral-500">
+            <div className="darkmode_text_paragraph">
               {friends.length} friends
             </div>
           </div>
         </div>
         <div>
-          <ManageAccountsOutlined />
+          <ManageAccountsOutlined style={{color: iconColor}}/>
         </div>
       </div>
       <HorizontalLine />
-      <div className="text-lightNeutral-0 pl-1 dark:text-darkNeutral-200">
+      <div className="darkmode_text_header pl-1">
         <div className="flex">
           <LocationOnOutlined />
-          <p className="ml-2">{location || "San Francisco, CA"}</p>
+          <p className="ml-2">{location || "n/a"}</p>
         </div>
 
         <div className="flex">
           <WorkOutlineOutlined />
-          <p className="ml-2">{"Software Engineer"}</p>
+          <p className="ml-2">{occupation || "n/a"}</p>
         </div>
       </div>
       <HorizontalLine />
-      <div className="text-lightNeutral-0 px-1 dark:text-darkNeutral-200">
+      <div className="darkmode_text_header px-1">
         <div className="flex justify-between items-center">
           <p>Times profile was viewed:</p>
           <p className="ml-2">{profileViews}</p>
@@ -77,7 +77,7 @@ export default function UserWidget({ userId }) {
         </div>
       </div>
       <HorizontalLine />
-      <div className="text-lightNeutral-0 px-1 dark:text-darkNeutral-200">
+      <div className="darkmode_text_header px-1">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <svg

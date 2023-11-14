@@ -12,11 +12,11 @@ export default function Home() {
       <div className="basis-[28%]">
         <UserWidget userId={userId}/>
       </div>
-      <div className="basis-[44%]">
+      <div className="basis-[38%]">
         <CreatePostWidget userId={userId}/>
         <FeedWidget userId={userId}/>
       </div>
-      <div className="basis-[28%]">
+      <div className="basis-[34%]">
         <AdWidget/>
         <FriendsWidget userId={userId}/>
       </div>

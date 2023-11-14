@@ -15,7 +15,7 @@ export default function FriendsWidget({userId}) {
 
   return (
     <WidgetWrapper>
-      <div className="font-bold text-md mb-2">Friends</div>
+      <div className="font-bold text-md mb-2 darkmode_text_header">Friends</div>
       {friends &&
         friends.map(({ firstName, lastName, _id, location, imageUrl }) => (
           <div key={_id} className="w-full mb-2">

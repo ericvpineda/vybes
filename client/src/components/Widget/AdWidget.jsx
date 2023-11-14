@@ -4,7 +4,7 @@ import WidgetWrapper from "./WidgetWrapper";
 export default function AdWidget() {
   return (
     <WidgetWrapper>
-      <div className="flex justify-between items-end mb-2">
+      <div className="flex justify-between items-end mb-2 darkmode_text_header">
         <div className="uppercase font-bold text-md">Sponsered</div>
         <div className="font-medium cursor-pointer text-sm">Create Ad</div>
       </div>
@@ -15,15 +15,15 @@ export default function AdWidget() {
           className="object-cover w-full max-h-[15rem] rounded-xl "
         />
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center darkmode_text_header">
         <p className="font-medium text-sm">Ticketmaster Affiliate</p>
         <p className="font-sm text-sm ">
           <a href="https://developer.ticketmaster.com/partners/distribution-partners/affiliate-sign-up/">
-            developer.ticketmaster.com
+            ticketmaster.com
           </a>
         </p>
       </div>
-      <div className="text-sm p-2">
+      <div className="text-sm p-2 darkmode_text_paragraph">
         <p className="text-sm text-lightNeutral-300 leading-relaxed">
           Unlock the power of live entertainment with the Ticketmaster Affiliate
           Program and earn commissions by promoting and selling tickets to the

@@ -27,7 +27,8 @@ export default function PostWidget({
   postId,
   isFriend = false,
 }) {
-  const { token, user: currUser } = useSelector((state) => state.auth);
+  const { token, user: currUser, mode } = useSelector((state) => state.auth);
+  const iconColor = mode === "dark" ? "white" : "black";
   const dispatch = useDispatch();
   const [isShowingComments, setisShowingComments] = useState(false);
 
@@ -44,7 +45,7 @@ export default function PostWidget({
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
     } else {
-      toast.error("Unable to perform post action.")
+      toast.error("Unable to perform post action.");
     }
   };
 
@@ -58,9 +59,11 @@ export default function PostWidget({
         imageUrl={userImageUrl}
         isFriend={isFriend}
       />
-      <h3 className="text-sm text-lightNeutral-300 mb-3">{body}</h3>
+      <h3 className="text-sm text-lightNeutral-300 my-3 darkmode_text_header">
+        {body}
+      </h3>
       {imageUrl && (
-        <div className="w-full h-full">
+        <div className="w-full h-full mb-2">
           <img
             src={`http://localhost:8000/assets/${imageUrl}`}
             alt={`${imageUrl}`}
@@ -72,36 +75,43 @@ export default function PostWidget({
       <div className="flex justify-between">
         <div className="flex">
           <div className="flex items-center">
-            <IconButton onClick={toggleLike}>
+            <IconButton onClick={toggleLike} style={{ color: iconColor }}>
               {currUser in likes ? (
                 <FavoriteOutlined />
               ) : (
                 <FavoriteBorderOutlined />
               )}
             </IconButton>
-            <p className="ml-1 mr-3">{Object.keys(likes).length}</p>
+            <p className="ml-1 mr-3 darkmode_text_paragraph">
+              {Object.keys(likes).length}
+            </p>
           </div>
           <div className="flex items-center">
             <IconButton
+              style={{ color: iconColor }}
               onClick={() => setisShowingComments(!isShowingComments)}
             >
               <ChatBubbleOutlined />
             </IconButton>
-            <p className="ml-1">{comments.length}</p>
+            <p className="ml-1 darkmode_text_paragraph">
+              {comments.length}
+            </p>
           </div>
         </div>
         <div className="flex items-center">
-          <IconButton>
+          <IconButton style={{ color: iconColor }}>
             <ShareOutlined />
           </IconButton>
-          <p className="ml-1">0</p>
+          <p className="ml-1 darkmode_text_paragraph">
+            0
+          </p>
         </div>
       </div>
       {isShowingComments && comments && comments.length > 0 && (
         <>
           {comments.map((comment) => (
             <>
-             <HorizontalLine/>
+              <HorizontalLine />
               <div className="text-sm text-lightNeutral-300">{comment}</div>
             </>
           ))}

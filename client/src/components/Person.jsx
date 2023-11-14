@@ -18,7 +18,8 @@ export default function Person({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, user: id } = useSelector((state) => state.auth);
+  const { token, user: id, mode } = useSelector((state) => state.auth);
+  const iconColor = mode === "dark" ? "white" : "black";
 
   const addRemoveHandler = async () => {
     const response = await fetch(`${HOST_BACKEND}/user/${id}/${userId}`, {
@@ -43,24 +44,24 @@ export default function Person({
           <UserImage name={imageUrl} />
         </div>
         <div>
-          <h4 className="font-bold text-md text-lightPrimary-0">
+          <h4 className="font-bold text-md darkmode_text_primary">
             {firstName} {lastName}
           </h4>
-          <div className="text-lightNeutral-200 text-sm">
-            {location || "Seattle, Washington"}
+          <div className="text-lightNeutral-200 dark:text-darkNeutral-500 text-sm">
+            {location}
           </div>
         </div>
       </div>
       {id !== userId &&
         (isFriend ? (
           <div className="cursor-pointer" onClick={addRemoveHandler}>
-            <IconButton>
+            <IconButton style={{color: iconColor}}>
               <PersonRemoveOutlined />
             </IconButton>
           </div>
         ) : (
           <div className="cursor-pointer" onClick={addRemoveHandler}>
-            <IconButton>
+            <IconButton style={{color: iconColor}}>
               <PersonAddOutlined />
             </IconButton>
           </div>

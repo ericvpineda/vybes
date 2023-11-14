@@ -67,7 +67,7 @@ export default function CreatePostWidget() {
 
   return (
     <WidgetWrapper>
-      <div className="flex w-full ">
+      <div className="flex w-full">
         <UserImage name={user ? user.imageUrl : ""} />
         <InputBase
           placeholder="Tell me some good news..."
@@ -103,13 +103,13 @@ export default function CreatePostWidget() {
                   <IconButton style={{ color: iconColor }}>
                     <AddPhotoAlternateIcon />
                   </IconButton>
-                  <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+                  <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
                     Image
                   </p>
                 </>
               ) : (
                 <div className="flex items-center">
-                  <div className="mr-3 create_post_button_action">
+                  <div className="mr-3 button_text_nowrap">
                     {image.name}
                   </div>
                   <IconButton style={{ color: iconColor }}>
@@ -124,7 +124,7 @@ export default function CreatePostWidget() {
           <IconButton style={{ color: iconColor }}>
             <AttachFileIcon />
           </IconButton>
-          <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+          <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
             Attachment
           </p>
         </div>
@@ -132,7 +132,7 @@ export default function CreatePostWidget() {
           <IconButton style={{ color: iconColor }}>
             <MicOutlined />
           </IconButton>
-          <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+          <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
             Record
           </p>
         </div>
@@ -140,7 +140,7 @@ export default function CreatePostWidget() {
           <IconButton style={{ color: iconColor }}>
             <VideoCameraBackIcon />
           </IconButton>
-          <p className="sm:ml-1 hidden sm:block text-lightNeutral-200 dark:text-darkNeutral-200">
+          <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
             Video
           </p>
         </div>
@@ -151,17 +151,17 @@ export default function CreatePostWidget() {
           disabled={postInfo.length === 0 ? true : false}
           style={{
             cursor: "pointer",
-
           }}
           sx={{
-            p: "0.25rem 0 0 0",
+            p: "0.25rem 1rem 0 1rem",
+            m: "0 0 0 1rem",
             backgroundColor: mode === "dark" ? "#40916c" : "#309a4f",
             "&:hover": {
-              backgroundColor: mode === "dark" ? "#2d6a4f": "#40916c",
+              backgroundColor: mode === "dark" ? "#2d6a4f" : "#40916c",
             },
           }}
         >
-          <span className="text-black dark:text-darkNeutral-200">
+          <span className="text-darkNeutral-200">
             {buttonText}
           </span>
         </Button>

@@ -13,6 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.auth.mode);
+  const labelnameColor = "green" || "#40916c";
 
   const formSubmitHandler = async (values, props) => {
     const response = await fetch(`${HOST_BACKEND}/auth/login`, {
@@ -93,6 +94,9 @@ export default function Login() {
                       "& .MuiOutlinedInput-input": {
                         color: "white",
                       },
+                      "& .Mui-focused": {
+                        color: labelnameColor,
+                      },
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": {
                           borderColor: "white",
@@ -124,6 +128,9 @@ export default function Login() {
                       },
                       "& .MuiOutlinedInput-input": {
                         color: "white",
+                      },
+                      "& .Mui-focused": {
+                        color: labelnameColor,
                       },
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": {
