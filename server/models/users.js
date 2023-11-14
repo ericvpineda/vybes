@@ -9,6 +9,7 @@ const userSchema = new Schema(
     imageUrl: { type: String, default: "" },
     bio: { type: String, default: ""},
     location: { type: String, default: "" },
+    occupation: { type: String, default: "" },
     profileViews: { type: Number, default: 0, min: 0 },
     friends: { type: Array, default: [] },
   },
