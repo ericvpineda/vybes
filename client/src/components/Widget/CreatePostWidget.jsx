@@ -49,7 +49,6 @@ export default function CreatePostWidget() {
     const posts = await response.json();
 
     if (response.ok) {
-      toast.success("Post success!");
       setbuttonText("Done!");
       setTimeout(() => setbuttonText("Post"), 800);
       setimage(null);
@@ -80,6 +79,7 @@ export default function CreatePostWidget() {
             padding: "1rem 2rem",
           }}
           onChange={(e) => setpostInfo(e.target.value)}
+          value={postInfo}
         />
       </div>
       <HorizontalLine />
