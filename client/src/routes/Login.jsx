@@ -123,7 +123,7 @@ export default function Login() {
                         color: "white",
                       },
                       "& .MuiOutlinedInput-input": {
-                        color: "gray",
+                        color: "white",
                       },
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": {
@@ -151,7 +151,7 @@ export default function Login() {
                     resetForm();
                     navigate("/register");
                   }}
-                  className="cursor-pointer text-blue-800 underline"
+                  className="cursor-pointer text-blue-800 underline dark:text-gray-100"
                 >
                   Don't have an account? Sign up here.
                 </div>
