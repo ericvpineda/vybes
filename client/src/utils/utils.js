@@ -1,4 +1,4 @@
-let HOST_FRONTEND = "https://vybes-frontend.onrender.com";
+let HOST_FRONTEND = "https://vybes.onrender.com";
 let HOST_BACKEND = "https://vybes-backend.onrender.com";
 
 if (process.env.NODE_ENV === 'development') {

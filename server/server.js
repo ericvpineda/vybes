@@ -23,12 +23,11 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
-let PORT = 8000;
+let PORT = process.env.PORT || 8000;
 let MONGODB_URL = process.env.MONGODB_PROD;
 
 if (process.env.NODE_ENV === 'development') {
     MONGODB_URL = process.env.MONGODB_DEV;
-    PORT = process.env.PORT 
 }
 
 app.use(express.json());
