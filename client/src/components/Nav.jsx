@@ -128,16 +128,20 @@ export default function Nav() {
               <Select
                 className="bg-lightNeutral-800 dark:bg-darkNeutral-900 dark:text-gray-300"
                 value={userFullName}
-                sx={{
-                  width: "150px",
-                  borderRadius: "0.25rem",
-                  p: "0.25rem 1rem",
-                  "& .MuiSvgIcon-root": {
-                    pr: "0.25rem",
-                    width: "3rem",
-                  },
-                }}
-                input={<InputBase />}
+                input={
+                  <InputBase
+                    sx={{
+                      width: "150px",
+                      borderRadius: "0.25rem",
+                      p: "0.25rem 1rem",
+                      "& .MuiSvgIcon-root": {
+                        pr: "0.25rem",
+                        width: "3rem",
+                        color: iconColor
+                      },
+                    }}
+                  />
+                }
               >
                 <MenuItem value={userFullName}>
                   <div>{userFullName}</div>
