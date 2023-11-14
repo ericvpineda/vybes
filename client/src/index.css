@@ -35,7 +35,7 @@ html {
 }
 
 .create_post_button {
-  @apply cursor-pointer flex items-center sm:px-4 px-6 border-r-2 border-gray-300 border-0 dark:border-gray-700
+  @apply cursor-pointer flex items-center sm:pr-4 px-4 border-r-2 border-gray-300 border-0 dark:border-gray-700
 }
 
 .button_text_nowrap {

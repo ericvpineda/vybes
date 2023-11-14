@@ -9,14 +9,14 @@ export default function Home() {
   const userId = useSelector(state => state.auth.user)
   return (
     <div className="h-full w-full lg:flex block gap-4">
-      <div className="basis-[28%]">
+      <div className="basis-[27%]">
         <UserWidget userId={userId}/>
       </div>
-      <div className="basis-[38%]">
+      <div className="basis-[48%]">
         <CreatePostWidget userId={userId}/>
         <FeedWidget userId={userId}/>
       </div>
-      <div className="basis-[34%]">
+      <div className="basis-[25%]">
         <AdWidget/>
         <FriendsWidget userId={userId}/>
       </div>
