@@ -39,7 +39,7 @@ export default function Nav() {
   const userFullName = (user && `${user.firstName} ${user.lastName}`) || "";
 
   useEffect(() => {
-    getUser({ userId, token, setuser, navigate });
+    getUser({ userId, token, setuser });
   }, [userId, token]);
 
   return (

@@ -18,11 +18,9 @@ import {
 import Dropzone from "react-dropzone";
 import { setLogout, setPosts } from "state/auth";
 import { HOST_BACKEND, getUser } from "utils/utils";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export default function CreatePostWidget() {
-  const navigate = useNavigate();
   const [postInfo, setpostInfo] = useState("");
   const {token, user:userId} = useSelector((state) => state.auth);
   const [buttonText, setbuttonText] = useState("Post");
@@ -63,7 +61,7 @@ export default function CreatePostWidget() {
 
   
   useEffect(() => {
-    getUser({ userId, token, setuser, navigate });
+    getUser({ userId, token, setuser });
   }, [token, userId]);
 
   return (

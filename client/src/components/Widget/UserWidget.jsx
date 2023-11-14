@@ -18,7 +18,7 @@ export default function UserWidget({ userId }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUser({ userId, token, setuser, navigate });
+    getUser({ userId, token, setuser });
   }, [token, userId, userFriends]);
 
   if (!user) {

@@ -21,20 +21,20 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         {
-          path: "/",
-          element: (isAuthenticated ? <Home /> : <Navigate to="/login" />),
-        },
-        {
           path: "profile/:userId",
-          element: (isAuthenticated ? <Profile /> : <Navigate to="/login" />),
+          element: isAuthenticated ? <Profile /> : <Navigate to="/login" />,
         },
         {
           path: "register",
-          element: (isAuthenticated ? <Navigate to="/" /> : <Register />),
+          element: isAuthenticated ? <Navigate to="/" /> : <Register />,
         },
         {
           path: "login",
-          element: (isAuthenticated ? <Navigate to="/" /> : <Login />),
+          element: isAuthenticated ? <Navigate to="/" /> : <Login />,
+        },
+        {
+          path: "/",
+          element: isAuthenticated ? <Home /> : <Navigate to="/login" />,
         },
       ],
     },

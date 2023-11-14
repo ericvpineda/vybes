@@ -12,7 +12,7 @@ const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const getUser = async ({ userId, token, setuser, navigate }) => {
+const getUser = async ({ userId, token, setuser }) => {
   if (userId && token) {
     const response = await fetch(`${HOST_BACKEND}/user/${userId}`, {
       method: "GET",
@@ -28,7 +28,6 @@ const getUser = async ({ userId, token, setuser, navigate }) => {
     }
   } else {
     setuser(null)
-    navigate("/login")
   }
 };
 

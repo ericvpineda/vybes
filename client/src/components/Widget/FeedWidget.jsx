@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import PostWidget from "./PostWidget";
 import { setPosts } from "state/auth";
 import { HOST_BACKEND, getUser } from "utils/utils";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export default function FeedWidget({ isProfile = false, userId }) {
@@ -15,7 +14,6 @@ export default function FeedWidget({ isProfile = false, userId }) {
   
   const dispatch = useDispatch();
   const [user, setuser] = useState(null);
-  const navigate = useNavigate();
 
   const getPosts = async () => {
     const response = await fetch(`${HOST_BACKEND}/posts`, {
@@ -32,7 +30,7 @@ export default function FeedWidget({ isProfile = false, userId }) {
 
   // Note: friends needed to update isFriend boolean
   useEffect(() => {
-    getUser({ userId, token, setuser, navigate });
+    getUser({ userId, token, setuser});
     getPosts();
   }, [friends, token, userId]);
 

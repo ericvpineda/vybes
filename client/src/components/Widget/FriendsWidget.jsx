@@ -4,15 +4,13 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getFriends } from "utils/utils";
 import Person from "components/Person";
-import { useNavigate } from "react-router-dom";
 
 export default function FriendsWidget({userId}) {
   const { token, friends:userFriends } = useSelector((state) => state.auth);
   const [friends, setfriends] = useState(null);
-  const navigate = useNavigate
 
   useEffect(() => {
-    getFriends({ token, userId, setfriends, navigate });
+    getFriends({ token, userId, setfriends });
   }, [token, userId, userFriends]);
 
   return (
