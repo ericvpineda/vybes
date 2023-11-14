@@ -32,14 +32,11 @@ import { getUser } from "utils/utils";
 export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
-  const mode = useSelector((state) => state.auth.mode);
+  const {user:userId, token, mode} = useSelector((state) => state.auth);
   const [isMobileMenuToggled, setisMobileMenuToggled] = useState(false);
   const iconColor = mode === "dark" ? "white" : "black";
   const [user, setuser] = useState(null);
-  const userFullName =
-    (user && `${user.firstName} ${user.lastName}`) || "Fake Name";
+  const userFullName = (user && `${user.firstName} ${user.lastName}`) || "";
 
   useEffect(() => {
     getUser({ userId, token, setuser, navigate });
