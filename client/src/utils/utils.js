@@ -27,7 +27,6 @@ const getUser = async ({ userId, token, setuser, navigate }) => {
       toast.error("Unable to fetch given user.")
     }
   } else {
-    toast.error("No user selected.")
     navigate("/login")
   }
 };
