@@ -60,7 +60,7 @@ export default function Register() {
       <div className="w-full max-w-md bg-white p-7 bg-white dark:bg-darkBackground-0">
         <div className="border-b border-gray-900/10 pb-5 flex justify-center">
           <h2 className="text-xl font-semibold leading-7 text-lightPrimary-500 uppercase">
-            New Vybe Account
+            New Vybes Account
           </h2>
         </div>
         {/* Registeration Form  */}
