@@ -20,13 +20,13 @@ import { TextField } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { HOST_BACKEND } from "utils/utils";
 import toast from "react-hot-toast";
-import { setUser } from "state/auth";
+import { setPosts, setUser } from "state/auth";
 import { useDispatch } from "react-redux";
 
 export default function UserWidget() {
+  // Note: Do not need useEffect since useSelector will force rerender on updated state
   const {
     token,
-    friends: userFriends,
     mode,
     user,
   } = useSelector(state => state.auth);
@@ -34,8 +34,6 @@ export default function UserWidget() {
   const navigate = useNavigate();
   const iconColor = mode === "dark" ? "white" : "black";
   const [showUserEdit, setshowUserEdit] = useState(false);
-
-  useEffect(() => {}, [token, userFriends, user]);
 
   if (!user) {
     return null;
@@ -93,13 +91,14 @@ export default function UserWidget() {
       body: form,
     });
 
-    const userResonse = await response.json();
+    const updateUserResponse = await response.json();
     if (response.ok) {
-      dispatch(setUser({ user: userResonse.user }))
+      dispatch(setUser({ user: updateUserResponse.user }))
+      dispatch(setPosts({ posts: updateUserResponse.posts }))
       setshowUserEdit(!showUserEdit);
       toast.success(`Profile Updated!`);
     } else {
-      toast.error(userResonse.message);
+      toast.error(updateUserResponse.message);
     }
   };
 
