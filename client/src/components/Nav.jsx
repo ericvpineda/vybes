@@ -3,12 +3,9 @@ import {
   Box,
   IconButton,
   InputBase,
-  Typography,
   Select,
   MenuItem,
   FormControl,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import {
   Search,
@@ -24,23 +21,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state/auth.js";
 import { useNavigate } from "react-router-dom";
 import { classNames } from "utils/utils";
-import { useEffect } from "react";
-import { getUser } from "utils/utils";
 
 // Note:
 // - use MUI elements for components?
 export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {user:userId, token, mode} = useSelector((state) => state.auth);
+  const {user, mode} = useSelector((state) => state.auth);
   const [isMobileMenuToggled, setisMobileMenuToggled] = useState(false);
   const iconColor = mode === "dark" ? "white" : "black";
-  const [user, setuser] = useState(null);
   const userFullName = (user && `${user.firstName} ${user.lastName}`) || "";
-
-  useEffect(() => {
-    getUser({ userId, token, setuser });
-  }, [userId, token]);
 
   return (
     <nav className="fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full z-10">
