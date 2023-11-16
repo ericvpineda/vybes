@@ -1,17 +1,10 @@
 import React from "react";
 import WidgetWrapper from "./WidgetWrapper";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { getFriends } from "utils/utils";
 import Person from "components/Person";
 
-export default function FriendsWidget({userId}) {
-  const { token, friends:userFriends } = useSelector((state) => state.auth);
-  const [friends, setfriends] = useState(null);
-
-  useEffect(() => {
-    getFriends({ token, userId, setfriends });
-  }, [token, userId, userFriends]);
+export default function FriendsWidget() {
+  const { friends } = useSelector((state) => state.auth);
 
   return (
     <WidgetWrapper>
