@@ -1,13 +1,13 @@
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { TextField } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useSelector } from "react-redux";
+import * as Yup from "yup";
+import { Formik } from "formik";
 import Dropzone from "react-dropzone";
+import { TextField } from "@mui/material";
 import { HOST_BACKEND } from "utils/utils";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 
 export default function Register() {
   const navigate = useNavigate();

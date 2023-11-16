@@ -21,19 +21,19 @@ export default function Login() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
-    const authenticatedUser = await response.json();
+    const loginResponse = await response.json();
 
     if (response.ok) {
       dispatch(
         setLogin({
-          user: authenticatedUser.user._id,
-          token: authenticatedUser.accessToken,
+          user: loginResponse.user,
+          token: loginResponse.accessToken,
         })
       );
       props.resetForm();
       navigate("/");
     } else {
-      toast.error(authenticatedUser.message);
+      toast.error(loginResponse.message);
     }
   };
 

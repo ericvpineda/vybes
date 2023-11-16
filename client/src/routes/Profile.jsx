@@ -11,12 +11,12 @@ export default function Profile() {
   return (
     <div className="h-full w-full lg:flex block gap-4 lg:justify-center">
       <div className="basis-[32%]">
-        <UserWidget userId={userId}/>
-        <FriendsWidget userId={userId}/>
+        <UserWidget/>
+        <FriendsWidget/>
       </div>
       <div className="basis-[50%]">
         {currUser === userId && <CreatePostWidget />}
-        <FeedWidget isProfile={true} userId={userId}/>
+        <FeedWidget isProfile={true}/>
       </div>
     </div>
   )
