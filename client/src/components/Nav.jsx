@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   IconButton,
@@ -21,16 +21,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state/auth.js";
 import { useNavigate } from "react-router-dom";
 import { classNames } from "utils/utils";
+import { getUser } from "utils/utils";
+import { setUser } from "state/auth.js";
 
 // Note:
 // - use MUI elements for components?
 export default function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {user, mode} = useSelector((state) => state.auth);
+  const { user, mode, token } = useSelector((state) => state.auth);
+  const userId = (user && user._id) || null;
   const [isMobileMenuToggled, setisMobileMenuToggled] = useState(false);
   const iconColor = mode === "dark" ? "white" : "black";
   const userFullName = (user && `${user.firstName} ${user.lastName}`) || "";
+
+  // DEBUG:
+  // dispatch(setLogout())
+
+  useEffect(() => {
+    if (userId) {
+      getUser({ token, userId }).then((updatedUser) =>
+        dispatch(setUser({ user: updatedUser }))
+      );
+    }
+  }, []);
 
   return (
     <nav className="fixed t-0 py-4 px-[6%] bg-lightNeutral-900 dark:bg-darkBackground-0 w-full z-10">
@@ -124,7 +138,7 @@ export default function Nav() {
                       "& .MuiSvgIcon-root": {
                         pr: "0.25rem",
                         width: "3rem",
-                        color: iconColor
+                        color: iconColor,
                       },
                     }}
                   />
@@ -212,7 +226,7 @@ export default function Nav() {
                   "& .MuiSvgIcon-root": {
                     pr: "0.25rem",
                     width: "3rem",
-                    color: iconColor
+                    color: iconColor,
                   },
                 }}
                 input={<InputBase />}

@@ -11,8 +11,8 @@ import { Navigate } from "react-router-dom";
 
 function App() {
   // Used for dark/light mode
-  const colorTheme = useSelector((state) => state.auth.mode);
-  const isAuthenticated = Boolean(useSelector((state) => state.auth.token));
+  const {mode: colorTheme, token, user} = useSelector((state) => state.auth);
+  const isAuthenticated = Boolean(user && token);
   const htmlElem = document.querySelector("html");
 
   const router = createBrowserRouter([
