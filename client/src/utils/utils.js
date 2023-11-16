@@ -32,23 +32,9 @@ const getUser = async ({ userId, token }) => {
   }
 };
 
-const getFriends = async ({ userId, token, setfriends }) => {
-  const response = await fetch(`http://localhost:8000/user/${userId}/friends`, {
-    method: "GET",
-    headers: { Authorization: "Bearer " + token },
-  });
-  if (response.ok) {
-    const data = await response.json();
-    setfriends(data);
-  } else{
-    setfriends(null)
-  }
-};
-
 export {
   classNames,
   getUser,
-  getFriends,
   HOST_FRONTEND,
   HOST_BACKEND
 };
