@@ -27,7 +27,7 @@ export default function PostWidget({
   postId,
   isFriend = false,
 }) {
-  const { token, user: currUser, mode } = useSelector((state) => state.auth);
+  const { token, user, mode } = useSelector((state) => state.auth);
   const iconColor = mode === "dark" ? "white" : "black";
   const dispatch = useDispatch();
   const [isShowingComments, setisShowingComments] = useState(false);
@@ -39,7 +39,7 @@ export default function PostWidget({
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId: currUser }),
+      body: JSON.stringify({ userId: user._id }),
     });
     if (response.ok) {
       const updatedPost = await response.json();
@@ -76,7 +76,7 @@ export default function PostWidget({
         <div className="flex">
           <div className="flex items-center">
             <IconButton onClick={toggleLike} style={{ color: iconColor }}>
-              {currUser in likes ? (
+              {user._id in likes ? (
                 <FavoriteOutlined />
               ) : (
                 <FavoriteBorderOutlined />
