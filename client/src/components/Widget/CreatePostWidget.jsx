@@ -16,18 +16,17 @@ import {
   MoreHoizontalOutlined,
 } from "@mui/icons-material";
 import Dropzone from "react-dropzone";
-import { setLogout, setPosts } from "state/auth";
-import { HOST_BACKEND, getUser } from "utils/utils";
+import { setPosts } from "state/auth";
+import { HOST_BACKEND} from "utils/utils";
 import toast from "react-hot-toast";
 import { IconButton } from "@mui/material";
 
 export default function CreatePostWidget() {
   const [postInfo, setpostInfo] = useState("");
-  const { token, user: userId, mode } = useSelector((state) => state.auth);
+  const { token, user, mode } = useSelector((state) => state.auth);
   const [buttonText, setbuttonText] = useState("Post");
   const [image, setimage] = useState(null);
   const dispatch = useDispatch();
-  const [user, setuser] = useState(null);
   const iconColor = mode === "dark" ? "white" : "black";
   const onClickHandler = async () => {
     const values = {
@@ -59,10 +58,6 @@ export default function CreatePostWidget() {
       toast.error("Unable to create post.");
     }
   };
-
-  useEffect(() => {
-    getUser({ userId, token, setuser });
-  }, [token, userId]);
 
   return (
     <WidgetWrapper>
