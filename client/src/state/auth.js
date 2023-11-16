@@ -8,15 +8,17 @@ const initialState = {
   posts: [],
 };
 
+// Slice reducer for user authentication
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Reducer functions
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
     setUser: (state, action) => {
-      state.user = action.payload.user
+      state.user = action.payload.user;
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;
@@ -48,6 +50,13 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost, setUser } =
-  authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setFriends,
+  setPosts,
+  setPost,
+  setUser,
+} = authSlice.actions;
 export default authSlice.reducer;
