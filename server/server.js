@@ -14,6 +14,7 @@ import { isAuthenticated } from "./middleware/index.js";
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
+import {updateUserProfile} from "./controllers/users.js"
 // import {GridFsStorage} from 'multer-gridfs-storage';
 // import Grid from 'gridfs-stream';
 
@@ -66,6 +67,7 @@ mongoose.connect(MONGODB_URL, {
 app.post("/auth/register", upload.single("imageUrl"), createUser);
 // Create post with post image (if available)
 app.post("/posts", isAuthenticated, upload.single("imageUrl"), createPost)
+app.patch("/user/:id", isAuthenticated, upload.single("imageUrl"), updateUserProfile);
 
 // -- Routes --
 app.use("/auth", authRoutes)
