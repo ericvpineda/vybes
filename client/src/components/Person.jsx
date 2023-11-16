@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserImage from "./UserImage";
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
-import { setFriends } from "state/auth";
+import { setFriends, setUser } from "state/auth";
 import { IconButton } from "@mui/material";
 import { HOST_BACKEND } from "utils/utils";
 import toast from "react-hot-toast";
@@ -18,7 +18,8 @@ export default function Person({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, user: id, mode } = useSelector((state) => state.auth);
+  const { token, user, mode } = useSelector((state) => state.auth);
+  const id = (user && user._id) || null;
   const iconColor = mode === "dark" ? "white" : "black";
 
   const addRemoveHandler = async () => {
@@ -28,10 +29,11 @@ export default function Person({
     });
 
     if (response.ok) {
-      const friends = await response.json();
+      const { friends, user } = await response.json();
+      dispatch(setUser({ user }));
       dispatch(setFriends({ friends }));
     } else {
-      toast.error("Unable to add/remove selected friend.")
+      toast.error("Unable to add/remove selected friend.");
     }
   };
   return (
@@ -55,13 +57,13 @@ export default function Person({
       {id !== userId &&
         (isFriend ? (
           <div className="cursor-pointer" onClick={addRemoveHandler}>
-            <IconButton style={{color: iconColor}}>
+            <IconButton style={{ color: iconColor }}>
               <PersonRemoveOutlined />
             </IconButton>
           </div>
         ) : (
           <div className="cursor-pointer" onClick={addRemoveHandler}>
-            <IconButton style={{color: iconColor}}>
+            <IconButton style={{ color: iconColor }}>
               <PersonAddOutlined />
             </IconButton>
           </div>
