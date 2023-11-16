@@ -12,22 +12,23 @@ const classNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const getUser = async ({ userId, token, setuser }) => {
+const getUser = async ({ userId, token }) => {
   if (userId && token) {
     const response = await fetch(`${HOST_BACKEND}/user/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    const user = await response.json();
     if (response.ok) {
-      setuser(user);
+      const user = await response.json();
+      return user;
     } else {
-      setuser(null);
       toast.error("Unable to fetch given user.")
+      return null
     }
   } else {
-    setuser(null)
+    toast.error("Unable to fetch given user.")
+    return null;
   }
 };
 
