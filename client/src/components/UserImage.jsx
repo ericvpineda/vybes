@@ -9,17 +9,13 @@ export default function UserImage({ name, size = "60px" }) {
         <img
           src={`${HOST_BACKEND}/assets/${name}`}
           alt="User."
-          className={classNames(
-            "object-cover rounded-[50%]",
-            `min-h-[${size}] min-w-[${size}]`
-          )}
+          className="object-cover rounded-[50%]"
+          style={{ minHeight: size, minWidth: size }}
         />
       ) : (
         <Face6Icon
-          className={classNames(
-            "object-cover rounded-[50%] dark:bg-gray-200",
-            `min-h-[${size}] min-w-[${size}]`
-          )}
+          className="object-cover rounded-[50%] dark:bg-gray-200"
+          style={{ minHeight: size, minWidth: size }}
         />
       )}
     </Box>
