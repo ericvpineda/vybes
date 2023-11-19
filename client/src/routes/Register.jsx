@@ -297,6 +297,7 @@ export default function Register() {
                         name="imageUrl"
                         type="file"
                         className="sr-only"
+                        data-testid="image-upload"
                       />
                       {!values.imageUrl ? (
                         <div className="text-center">
