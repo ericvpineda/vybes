@@ -3,6 +3,6 @@
         "baseUrl": "src",
         "module": "es6"
     },
-    "include": ["src", "theme.js"],
+    "include": ["src", "theme.js", "babel.config.js", "jest.config.js", "jest.polyfills.js"],
     "exclude": ["node_modules"]
 }

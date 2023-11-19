@@ -1,3 +1,4 @@
+import React from 'react';
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -6,7 +7,7 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import Dropzone from "react-dropzone";
 import { TextField } from "@mui/material";
-import { HOST_BACKEND } from "utils/utils";
+import { HOST_BACKEND } from "../utils/utils";
 import toast from "react-hot-toast";
 
 export default function Register() {

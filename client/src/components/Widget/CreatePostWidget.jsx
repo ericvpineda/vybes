@@ -17,9 +17,10 @@ import {
 } from "@mui/icons-material";
 import Dropzone from "react-dropzone";
 import { setPosts } from "state/auth";
-import { HOST_BACKEND} from "utils/utils";
+import { HOST_BACKEND } from "utils/utils";
 import toast from "react-hot-toast";
 import { IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePostWidget() {
   const [postInfo, setpostInfo] = useState("");
@@ -28,6 +29,7 @@ export default function CreatePostWidget() {
   const [image, setimage] = useState(null);
   const dispatch = useDispatch();
   const iconColor = mode === "dark" ? "white" : "black";
+  const navigate = useNavigate();
   const onClickHandler = async () => {
     const values = {
       userId: user._id,
@@ -62,7 +64,12 @@ export default function CreatePostWidget() {
   return (
     <WidgetWrapper>
       <div className="flex w-full">
-        <UserImage name={user ? user.imageUrl : ""} />
+        <div className="cursor-pointer" onClick={() => navigate(`/profile/${user._id}`)}>
+          <UserImage
+            name={user ? user.imageUrl : ""}
+            
+          />
+        </div>
         <InputBase
           placeholder="Tell me some good news..."
           sx={{
@@ -120,25 +127,25 @@ export default function CreatePostWidget() {
         <div className="create_post_button">
           <IconButton style={{ color: iconColor, borderRadius: "10px" }}>
             <AttachFileIcon />
-          <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
-            Attachment
-          </p>
+            <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
+              Attachment
+            </p>
           </IconButton>
         </div>
         <div className="create_post_button">
           <IconButton style={{ color: iconColor, borderRadius: "10px" }}>
             <MicOutlined />
-          <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
-            Record
-          </p>
+            <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
+              Record
+            </p>
           </IconButton>
         </div>
         <div className="create_post_button">
           <IconButton style={{ color: iconColor, borderRadius: "10px" }}>
             <VideoCameraBackIcon />
-          <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
-            Video
-          </p>
+            <p className="sm:ml-1 hidden sm:block darkmode_create_button_text">
+              Video
+            </p>
           </IconButton>
         </div>
 
