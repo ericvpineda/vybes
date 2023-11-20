@@ -67,8 +67,8 @@ const addRemoveFriend = async (req, res) => {
         imageUrl,
       })
     );
-    delete user.password
-    res.status(200).json({friends: friendsFormatted, user});
+    delete user.password;
+    res.status(200).json({ friends: friendsFormatted, user });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -102,7 +102,8 @@ const updateUserProfile = async (req, res) => {
         occupation,
         bio,
         imageUrl,
-        _id
+        _id,
+        links,
       }) => ({
         _id,
         firstName,
@@ -113,18 +114,46 @@ const updateUserProfile = async (req, res) => {
         occupation,
         bio,
         imageUrl,
+        links
       })
     );
 
     // Update all posts with given user id with new information
-    await Post.updateMany({userId: id}, {$set: {firstName, lastName, userImageUrl: imageUrl}})
+    await Post.updateMany(
+      { userId: id },
+      { $set: { firstName, lastName, userImageUrl: imageUrl } }
+    );
     const posts = await Post.find({});
 
-
-    res.status(200).json({user: formattedUpdateUser[0], posts});
+    res.status(200).json({ user: formattedUpdateUser[0], posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
-export { getUser, getUserFriends, addRemoveFriend, updateUserProfile };
+const createLink = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { linkTitle, linkUrl, imageUrl } = req.body;
+    const user = await User.findById(id).populate("links");
+
+    user.links.push({
+      title: linkTitle,
+      url: linkUrl,
+      imageUrl,
+    });
+    await user.save();
+    delete user.password;
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export {
+  getUser,
+  getUserFriends,
+  addRemoveFriend,
+  updateUserProfile,
+  createLink,
+};
