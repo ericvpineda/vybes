@@ -5,6 +5,7 @@ import {
   WorkOutlineOutlined,
   HighlightOff,
 } from "@mui/icons-material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "./WidgetWrapper";
 import { useState, useEffect } from "react";
@@ -22,18 +23,16 @@ import { HOST_BACKEND } from "utils/utils";
 import toast from "react-hot-toast";
 import { setPosts, setUser } from "state/auth";
 import { useDispatch } from "react-redux";
+import UserLink from "components/UserLink";
 
 export default function UserWidget() {
   // Note: Do not need useEffect since useSelector will force rerender on updated state
-  const {
-    token,
-    mode,
-    user,
-  } = useSelector(state => state.auth);
-  const dispatch = useDispatch()
+  const { token, mode, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const iconColor = mode === "dark" ? "white" : "black";
   const [showUserEdit, setshowUserEdit] = useState(false);
+  const [showLinkCreate, setshowLinkCreate] = useState(false);
 
   if (!user) {
     return null;
@@ -49,10 +48,6 @@ export default function UserWidget() {
     bio,
     imageUrl,
   } = user;
-
-  const showUserEditPopupHandler = () => {
-    setshowUserEdit(!showUserEdit);
-  };
 
   // Note: imageUrl is set as string
   const initialValues = {
@@ -71,6 +66,21 @@ export default function UserWidget() {
     occupation: Yup.string().max(30, "Occupation length atmost 30 characters."),
     imageUrl: Yup.string(),
     location: Yup.string(),
+  });
+
+  // Note: imageUrl is set as string
+  const linkInitialValues = {
+    imageUrl: "",
+    linkTitle: "",
+    linkUrl: "",
+  };
+
+  const linkValidationSchema = Yup.object({
+    linkTitle: Yup.string()
+      .max(20, "Link title atmost 20 characters.")
+      .required(),
+    linkUrl: Yup.string().required(),
+    imageUrl: Yup.string(),
   });
 
   const labelnameColor = "#40916c";
@@ -93,10 +103,33 @@ export default function UserWidget() {
 
     const updateUserResponse = await response.json();
     if (response.ok) {
-      dispatch(setUser({ user: updateUserResponse.user }))
-      dispatch(setPosts({ posts: updateUserResponse.posts }))
+      dispatch(setUser({ user: updateUserResponse.user }));
+      dispatch(setPosts({ posts: updateUserResponse.posts }));
       setshowUserEdit(!showUserEdit);
       toast.success(`Profile Updated!`);
+    } else {
+      toast.error(updateUserResponse.message);
+    }
+  };
+
+  const userLinkSubmitHandler = async (values, props) => {
+    const response = await fetch(
+      `${HOST_BACKEND}/user/${user._id}/create-link`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(values),
+      }
+    );
+
+    const updateUserResponse = await response.json();
+    if (response.ok) {
+      dispatch(setUser({ user: updateUserResponse.user }));
+      setshowLinkCreate(!showLinkCreate);
+      toast.success(`Added link!`);
     } else {
       toast.error(updateUserResponse.message);
     }
@@ -158,38 +191,184 @@ export default function UserWidget() {
         </div>
       </div>
       <HorizontalLine />
-      <div className="darkmode_text_header px-1">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <svg
-              width="32px"
-              height="32px"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              className="dark:bg-lightBackground-900"
-            >
-              <title>github</title>
-              <rect width="24" height="24" fill="none" />
-              <path d="M12,2A10,10,0,0,0,8.84,21.5c.5.08.66-.23.66-.5V19.31C6.73,19.91,6.14,18,6.14,18A2.69,2.69,0,0,0,5,16.5c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1,2.15,2.15,0,0,0,2.91.83,2.16,2.16,0,0,1,.63-1.34C8,16.17,5.62,15.31,5.62,11.5a3.87,3.87,0,0,1,1-2.71,3.58,3.58,0,0,1,.1-2.64s.84-.27,2.75,1a9.63,9.63,0,0,1,5,0c1.91-1.29,2.75-1,2.75-1a3.58,3.58,0,0,1,.1,2.64,3.87,3.87,0,0,1,1,2.71c0,3.82-2.34,4.66-4.57,4.91a2.39,2.39,0,0,1,.69,1.85V21c0,.27.16.59.67.5A10,10,0,0,0,12,2Z" />
-            </svg>
-            <div className="flex flex-col justify-start">
-              <p className="ml-2 border-b-2 border-gray-300 dark:border-gray-700 font-medium">
-                GitHub
-              </p>
-              <p className="ml-2 dark:text-darkNeutral-300">
-                https://github.com/{firstName}
-                {lastName}
-              </p>
-            </div>
-          </div>
-          <IconButton style={{ color: iconColor }}>
-            <EditOutlined />
-          </IconButton>
-        </div>
+      {user.links && user.links.length > 0 &&
+        user.links.map(({ title, url, imageUrl }) => (
+          <UserLink title={title} url={url} imageUrl={imageUrl} />
+        ))}
+      <div className="flex justify-center items-center pb-0">
+        <IconButton onClick={() => setshowLinkCreate(!showLinkCreate)}>
+          <AddCircleIcon style={{ fontSize: "2.5rem" }} />
+        </IconButton>
       </div>
+      {showLinkCreate && (
+        <PopupWrapper togglePopup={() => setshowLinkCreate(!showLinkCreate)}>
+          <div className="rounded-lg w-full max-w-md bg-white p-7 bg-white dark:bg-darkBackground-0">
+            <div className="pb-5 flex justify-center">
+              <h2 className="text-xl font-semibold leading-7 text-lightPrimary-500 uppercase">
+                Create New Profile Link
+              </h2>
+            </div>
+            {/* Registeration Form  */}
+            <Formik
+              initialValues={linkInitialValues}
+              onSubmit={userLinkSubmitHandler}
+              validationSchema={linkValidationSchema}
+            >
+              {({
+                values,
+                errors,
+                touched,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                setFieldValue,
+                resetForm,
+              }) => (
+                <form
+                  method="POST"
+                  encType="multipart/form-data"
+                  onSubmit={handleSubmit}
+                >
+                  {/* Field: Update Image */}
 
+                  {/* Field: Link Title */}
+                  <TextField
+                    label="Link title"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.linkTitle}
+                    name="linkTitle"
+                    error={
+                      Boolean(touched.linkTitle) && Boolean(errors.linkTitle)
+                    }
+                    helperText={touched.linkTitle && errors.linkTitle}
+                    sx={{
+                      width: "100%",
+                      m: "0 0 1rem 0",
+                      ...(mode === "dark" && {
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                        },
+                        "& .MuiOutlinedInput-input": {
+                          color: "white",
+                        },
+                        "& .Mui-focused": {
+                          color: labelnameColor,
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "white",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused": {
+                            borderColor: "white",
+                          },
+                        },
+                      }),
+                    }}
+                  />
+
+                  {/* Field: Link Url */}
+                  <TextField
+                    onChange={handleChange}
+                    label="Link url"
+                    onBlur={handleBlur}
+                    value={values.linkUrl}
+                    name="linkUrl"
+                    error={Boolean(touched.linkUrl) && Boolean(errors.linkUrl)}
+                    helperText={touched.linkUrl && errors.linkUrl}
+                    sx={{
+                      width: "100%",
+                      m: "0 0 1rem 0",
+                      ...(mode === "dark" && {
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                        },
+                        "& .MuiOutlinedInput-input": {
+                          color: "white",
+                        },
+                        "& .Mui-focused": {
+                          color: labelnameColor,
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "white",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused": {
+                            borderColor: "white",
+                          },
+                        },
+                      }),
+                    }}
+                  />
+
+                  {/* Field: Link Image */}
+                  <TextField
+                    onChange={handleChange}
+                    label="Link Image"
+                    onBlur={handleBlur}
+                    value={values.imageUrl}
+                    name="imageUrl"
+                    error={
+                      Boolean(touched.imageUrl) && Boolean(errors.imageUrl)
+                    }
+                    helperText={touched.imageUrl && errors.imageUrl}
+                    sx={{
+                      width: "100%",
+                      m: "0 0 1rem 0",
+                      ...(mode === "dark" && {
+                        "& .MuiInputLabel-root": {
+                          color: "white",
+                        },
+                        "& .MuiOutlinedInput-input": {
+                          color: "white",
+                        },
+                        "& .Mui-focused": {
+                          color: labelnameColor,
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "white",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused": {
+                            borderColor: "white",
+                          },
+                        },
+                      }),
+                    }}
+                  />
+
+                  <button
+                    type="submit"
+                    className="mt-4 bg-lightPrimary-500 hover:bg-lightPrimary-0 text-white py-4 px-1 rounded-lg mb-4 text-md w-full"
+                  >
+                    Add
+                  </button>
+                </form>
+              )}
+            </Formik>
+          </div>
+        </PopupWrapper>
+      )}
       {showUserEdit && (
-        <PopupWrapper togglePopup={showUserEditPopupHandler}>
+        <PopupWrapper togglePopup={() => setshowUserEdit(!showUserEdit)}>
           <div className="rounded-lg w-full max-w-md bg-white p-7 bg-white dark:bg-darkBackground-0">
             <div className="pb-5 flex justify-center">
               <h2 className="text-xl font-semibold leading-7 text-lightPrimary-500 uppercase">

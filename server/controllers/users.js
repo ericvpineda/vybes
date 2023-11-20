@@ -74,6 +74,35 @@ const addRemoveFriend = async (req, res) => {
   }
 };
 
+const formatUser = (user) => {
+  const formattedUser = [user].map(
+    ({
+      firstName,
+      lastName,
+      location,
+      profileViews,
+      friends,
+      occupation,
+      bio,
+      imageUrl,
+      _id,
+      links,
+    }) => ({
+      _id,
+      firstName,
+      lastName,
+      location,
+      profileViews,
+      friends,
+      occupation,
+      bio,
+      imageUrl,
+      links,
+    })
+  );
+  return formattedUser[0];
+};
+
 // Note: need to call function from index.js (to save image locally)
 const updateUserProfile = async (req, res) => {
   try {
@@ -92,31 +121,7 @@ const updateUserProfile = async (req, res) => {
       },
       { new: true }
     );
-    const formattedUpdateUser = [updatedUser].map(
-      ({
-        firstName,
-        lastName,
-        location,
-        profileViews,
-        friends,
-        occupation,
-        bio,
-        imageUrl,
-        _id,
-        links,
-      }) => ({
-        _id,
-        firstName,
-        lastName,
-        location,
-        profileViews,
-        friends,
-        occupation,
-        bio,
-        imageUrl,
-        links
-      })
-    );
+    const user = formatUser(updatedUser);
 
     // Update all posts with given user id with new information
     await Post.updateMany(
@@ -125,7 +130,7 @@ const updateUserProfile = async (req, res) => {
     );
     const posts = await Post.find({});
 
-    res.status(200).json({ user: formattedUpdateUser[0], posts });
+    res.status(200).json({ user, posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -143,8 +148,8 @@ const createLink = async (req, res) => {
       imageUrl,
     });
     await user.save();
-    delete user.password;
-    res.status(201).json(user);
+    const formattedUser = formatUser(user);
+    res.status(201).json({ user: formattedUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
