@@ -1,5 +1,5 @@
 # vybes
-![vybes Hero](./public/readme/rke-hero.png)
+![vybes Hero](./public/readme/vybes-hero.png)
 
 ## Description
 - Modular social media website used to post, share, and chat about electronic music.
