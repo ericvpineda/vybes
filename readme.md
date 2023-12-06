@@ -3,10 +3,10 @@
 
 ## Description
 - Modular social media website used to post, share, and chat about electronic music.
-- Website: [vybes.onrender.com](vybes.onrender.com)
+- Website: [vybes.onrender.com](https://vybes.onrender.com)
 - Important: 
     - Currently, backend server is hosted on Render.com and by default sleeps after 10 minutes of inactivity.
-    - To breifly mitigate this, please visit [vybes-backend.onrender.com](vybes-backend.onrender.com) for a brief few seconds to allow the server to wake. 
+    - To breifly mitigate this, please visit [vybes-backend.onrender.com](https://vybes-backend.onrender.com) for a brief few seconds to allow the server to wake. 
     - Planning to host backend on serverless website in the future.
 
 ## Functionalities
